@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<annotation>
+  <filename>905.jpg</filename>
+  <object_num>3</object_num>
+  <size>
+    <width>1080</width>
+    <height>1920</height>
+  </size>
+  <object>
+    <name>negative</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>372</xmin>
+      <ymin>1400</ymin>
+      <xmax>644</xmax>
+      <ymax>1490</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>negative</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>341</xmin>
+      <ymin>1106</ymin>
+      <xmax>635</xmax>
+      <ymax>1218</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>negative</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>346</xmin>
+      <ymin>833</ymin>
+      <xmax>631</xmax>
+      <ymax>943</ymax>
+    </bndbox>
+  </object>
+</annotation>

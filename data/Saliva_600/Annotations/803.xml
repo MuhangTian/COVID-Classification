@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<annotation>
+  <filename>803.jpg</filename>
+  <object_num>1</object_num>
+  <size>
+    <width>1279</width>
+    <height>1706</height>
+  </size>
+  <object>
+    <name>negative</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>545</xmin>
+      <ymin>688</ymin>
+      <xmax>659</xmax>
+      <ymax>976</ymax>
+    </bndbox>
+  </object>
+</annotation>

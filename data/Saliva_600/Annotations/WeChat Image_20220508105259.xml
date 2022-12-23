@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<annotation>
+  <filename>WeChat Image_20220508105259.png</filename>
+  <object_num>4</object_num>
+  <size>
+    <width>1284</width>
+    <height>2778</height>
+  </size>
+  <object>
+    <name>positive</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>311</xmin>
+      <ymin>794</ymin>
+      <xmax>381</xmax>
+      <ymax>1001</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>positive</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>497</xmin>
+      <ymin>1051</ymin>
+      <xmax>585</xmax>
+      <ymax>1235</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>positive</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>669</xmin>
+      <ymin>1045</ymin>
+      <xmax>737</xmax>
+      <ymax>1236</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>positive</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>848</xmin>
+      <ymin>1052</ymin>
+      <xmax>907</xmax>
+      <ymax>1228</ymax>
+    </bndbox>
+  </object>
+</annotation>

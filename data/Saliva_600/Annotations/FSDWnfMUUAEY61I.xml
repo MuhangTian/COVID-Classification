@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<annotation>
+  <filename>FSDWnfMUUAEY61I.jpg</filename>
+  <object_num>1</object_num>
+  <size>
+    <width>1953</width>
+    <height>2048</height>
+  </size>
+  <object>
+    <name>positive</name>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>916</xmin>
+      <ymin>605</ymin>
+      <xmax>1161</xmax>
+      <ymax>1183</ymax>
+    </bndbox>
+  </object>
+</annotation>
