@@ -51,11 +51,15 @@ def files_rename(path, start):
         c += 1
     after = len(os.listdir(path)) - 1
     
-    print(' ---------------------- DONE ----------------------')
-    if before == after: print('No files lost :)')
+    if before == after: 
+        print('No files lost :)')
     else: print('Files lost!!! :(')
     print('File names are consecutive integers from {}: {}'.format(start, cont_int(path, start)))
-
+    if before == after and cont_int(path,start) == True:
+        ph = 'SUCCESS'
+    else: ph = 'FAILED'
+    print('---------------------- {} ----------------------'.format(ph))
+    
 if __name__ == '__main__':
     files_rename('data/Tony_cropped', 501)
     # print(get_inter([1,2,3,4], [1,3]))
