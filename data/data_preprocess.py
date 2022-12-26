@@ -53,6 +53,7 @@ def files_rename(path, start):
     
     if before == after: 
         print('No files lost :)')
+        print('Number of images: {}'.format(before))
     else: print('Files lost!!! :(')
     print('File names are consecutive integers from {}: {}'.format(start, cont_int(path, start)))
     if before == after and cont_int(path,start) == True:
