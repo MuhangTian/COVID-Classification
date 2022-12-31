@@ -1,4 +1,4 @@
 venv
 .DS_Store
 data/*
-!data/data_helper.py
+!data/self-data.csv
