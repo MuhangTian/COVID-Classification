@@ -1,4 +1,4 @@
-''' To help with analyzing image data and label annotation files '''
+''' To help with analyzing image and annotation files during image collection process '''
 import os
 import numpy as np
 import pandas as pd
@@ -100,8 +100,22 @@ def find_overlabel(path):
         for child in root.findall('object'): c += 1
         if c > 1: arr.append(root.findall('filename')[0].text)
     print('Overlabelled: {}'.format(arr))
-                
-    
+
+def drop_dash(path):
+    ''' drop all letters before - in the directory of image files '''
+    files1 = os.listdir('{}/Annotations'.format(path))
+    files2 = os.listdir('{}/images'.format(path))
+    try: 
+        files1.remove('.DS_Store')
+        files2.remove('.DS_Store')
+    except: pass
+    for file in files1:
+        arr = file.split('-')
+        os.rename('{}/Annotations/{}'.format(path, file), '{}/Annotations/{}'.format(path, arr[1]))
+    for file in files2:
+        arr = file.split('-')
+        os.rename('{}/images/{}'.format(path, file), '{}/images/{}'.format(path, arr[1]))
+        
 def xml_csv(path, out_path, out_name):
     """
     Parse .xml annotation files from Pascal VOC format into .csv
@@ -109,7 +123,7 @@ def xml_csv(path, out_path, out_name):
     Args:
         path (str): path of the annotation folder with .xml files
         out_path (str): path where .csv file is created
-        out_name (str): name of the output .csv file
+        out_name (str): out_name.csv stored in out_path
     """
     files = os.listdir(path)
     try: files.remove('.DS_Store')
@@ -134,6 +148,7 @@ def xml_csv(path, out_path, out_name):
                         try: dict[child3.tag].append(child3.text)
                         except: dict[child3.tag] = [child3.text]
     df = pd.DataFrame(dict)
+    df.replace('(.*)-', '', inplace=True, regex=True)
     df = df.reindex(columns=['label', 'filename', 'width', 'height', 'depth', 'xmin', 'ymin', 'xmax', 'ymax'])
     df.to_csv('{}/{}.csv'.format(out_path, out_name), index=False)
     print('============== {}.csv created in <{}> =============='.format(out_name, out_path))
@@ -149,14 +164,16 @@ class EDA():
         self.df['box area'] = (self.df['xmax'] - self.df['xmin']) * (self.df['ymax'] - self.df['ymin'])
     
     def image_dist(self):
+        color = iter(['b', 'r', 'y', 'purple', 'pink', 'brown', 'c'])
         for e in ['width', 'height', 'depth', 'area', 'volume']:
-            sns.histplot(self.df[e])
+            sns.histplot(self.df[e], color=next(color))
             plt.title('{} Distribution, mean: {}, std: {}'.format(e, np.mean(self.df[e]), np.std(self.df[e])))
             plt.show()
 
     def coord_dist(self):
+        color = iter(['b', 'r', 'y', 'purple', 'pink', 'brown', 'c'])
         for e in ['xmax', 'xmin', 'ymax', 'ymin', 'box area']:
-            sns.histplot(self.df[e])
+            sns.histplot(self.df[e], color=next(color))
             plt.title('{} Distribution, mean: {}, std: {}'.format(e, np.mean(self.df[e]), np.std(self.df[e])))
             plt.show()
 
@@ -168,9 +185,7 @@ class EDA():
         
 
 if __name__ == '__main__':
-    # xml_csv(path='data/Tony_annotated/Annotations', out_path='data', out_name='Tony_annotated')
-    # find_overlabel('data/Tony_annotated/Annotations')
-    find_rotated('data/project.json', start=None, num=None)
-    # eda = EDA('data/Tony_annotated.csv')
-    # eda.coord_dist()
+    # drop_dash('data/Tony_annotated')
+    xml_csv('data/Tony_annotated/Annotations', 'data', 'Tony_annotated')
+    
     
