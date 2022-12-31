@@ -3,12 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import patches
-import torch
-import torchvision
-import cv2
 from PIL import Image
 
-def get_img(name): return 'data/Tony_annotated/images/{}'.format(name)
+def get_img(name): return 'data/self-data/images/{}'.format(name)
 
 def get_bbox(df, name):
     ''' get coordinates of bounding box '''
@@ -44,6 +41,7 @@ def plot_image(df, img_name, figsize=(8,8)):
     fig, ax = plt.subplots(1, figsize=figsize)
     ax.imshow(img)
     plot_bbox(ax, bbox, color)
+    plt.title(img_name)
     plt.show()
     
 if __name__ == '__main__':

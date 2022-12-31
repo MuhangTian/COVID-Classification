@@ -185,7 +185,6 @@ class EDA():
         
 
 if __name__ == '__main__':
-    # drop_dash('data/Tony_annotated')
-    xml_csv('data/Tony_annotated/Annotations', 'data', 'Tony_annotated')
+    xml_csv('data/self-data/Annotations', 'data', 'self-data')
     
     
