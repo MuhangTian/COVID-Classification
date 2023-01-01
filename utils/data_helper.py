@@ -1,4 +1,4 @@
-''' To help with analyzing image and annotation files during image collection process '''
+''' Helpers with data cleaning, analysis '''
 import os
 import numpy as np
 import pandas as pd
