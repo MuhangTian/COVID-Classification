@@ -133,27 +133,18 @@ class EfficientDetModel(pl.LightningModule):
     def forward(self, images, targets):
         return self.model(images, targets)
 
-    def configure_optimizers(self): # TODO: may need to consider other optimizers
+    def configure_optimizers(self): # TODO: may need to consider other optimizers in future
         return torch.optim.AdamW(self.model.parameters(), lr=self.lr)
     
     def training_step(self, batch, batch_idx):
         images, annotations, _, image_ids = batch
         losses = self.model(images, annotations)
-        # TODO: need to find some performance metric to be stored in log
-        log_losses = {
-            "class_loss": losses["class_loss"].detach(),
-            "box_loss": losses["box_loss"].detach(),
-        }
-        self.log('Train Loss', losses['loss'])
-        self.log('Train Classification Loss', log_losses['class_loss'])
-        self.log('Train Localization Loss', log_losses['box_loss'])
-
+        self.log('Train Loss', losses['loss'].detach())
+        self.log('Train Classification Loss', losses["class_loss"].detach())
+        self.log('Train Localization Loss', losses["box_loss"].detach())
         return losses['loss']
     
-    def training_epoch_end(self, outputs: EPOCH_OUTPUT) -> None:
-        return super().training_epoch_end(outputs)
-    
-    @torch.no_grad()    # disable training since currently in validation
+    @torch.no_grad()    
     def validation_step(self, batch, batch_idx):
         images, annotations, targets, image_ids = batch
         outputs = self.model(images, annotations)
