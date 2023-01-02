@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader
 from fastcore.dispatch import typedispatch
+from objdetecteval.metrics.coco_metrics import get_coco_stats
 from typing import List
 import pytorch_lightning as pl
 import torch
@@ -120,14 +121,14 @@ class EfficientDetModel(pl.LightningModule):
         img_size=512,
         predict_confidence_thres=0.2,
         lr=0.0002,
-        wbf_thres=0.44,
+        iou_thres=0.44,
     ):
         super().__init__()
         self.img_size = img_size
         self.model = create_model(num_classes, img_size, backbone)
         self.predict_confidence_thres = predict_confidence_thres
         self.lr = lr
-        self.wbf_thres = wbf_thres
+        self.iou_thres = iou_thres
         self.inference_tfms = inference_transforms
 
     def forward(self, images, targets):
@@ -149,22 +150,50 @@ class EfficientDetModel(pl.LightningModule):
         images, annotations, targets, image_ids = batch
         outputs = self.model(images, annotations)
         detections = outputs["detections"]
-        # TODO: need to find some performance metric to be stored in log
         batch_predictions = {
             "predictions": detections,
             "targets": targets,
             "image_ids": image_ids,
         }
-
-        log_loss = {
-            "class_loss": outputs["class_loss"].detach(),
-            "box_loss": outputs["box_loss"].detach(),
-        }        
         self.log('Validation Loss', outputs["loss"])
-        self.log('Validation Classification Loss', log_loss["class_loss"])
-        self.log('Validation Localization Loss', log_loss["box_loss"])
-
+        self.log('Validation Classification Loss', outputs["class_loss"].detach())
+        self.log('Validation Localization Loss', outputs["box_loss"].detach())
+        # predicted_bboxes, predicted_class_confidences, predicted_class_labels = self.predict(images)
         return {'loss': outputs["loss"], 'batch_predictions': batch_predictions}
+    
+    def validation_epoch_end(self, outputs):
+        validation_loss_mean = torch.stack(
+            [output["loss"] for output in outputs]
+        ).mean()
+
+        (
+            predicted_class_labels,
+            image_ids,
+            predicted_bboxes,
+            predicted_class_confidences,
+            targets,
+        ) = self.aggregate_prediction_outputs(outputs)
+
+        truth_image_ids = [target["image_id"].detach().item() for target in targets]
+        truth_boxes = [
+            target["bboxes"].detach()[:, [1, 0, 3, 2]].tolist() for target in targets
+        ] # convert to xyxy for evaluation
+        truth_labels = [target["labels"].detach().tolist() for target in targets]
+
+        stats = get_coco_stats(
+            prediction_image_ids=image_ids,
+            predicted_class_confidences=predicted_class_confidences,
+            predicted_bboxes=predicted_bboxes,
+            predicted_class_labels=predicted_class_labels,
+            target_image_ids=truth_image_ids,
+            target_bboxes=truth_boxes,
+            target_class_labels=truth_labels,
+        )['All']
+        
+        self.log('Average Precision', stats['AP_all'])
+        self.log('Average Recall', stats['AR_all'])
+        
+        return {"val_loss": validation_loss_mean, "metrics": stats}
     
     @typedispatch
     def predict(self, images: List):
@@ -246,7 +275,7 @@ class EfficientDetModel(pl.LightningModule):
             )
 
         predicted_bboxes, predicted_class_confidences, predicted_class_labels = run_wbf(
-            predictions, image_size=self.img_size, iou_thr=self.wbf_iou_threshold
+            predictions, image_size=self.img_size, iou_thr=self.iou_thres
         )
 
         return predicted_bboxes, predicted_class_confidences, predicted_class_labels
@@ -255,7 +284,7 @@ class EfficientDetModel(pl.LightningModule):
         boxes = detections.detach().cpu().numpy()[:, :4]
         scores = detections.detach().cpu().numpy()[:, 4]
         classes = detections.detach().cpu().numpy()[:, 5]
-        indexes = np.where(scores > self.prediction_confidence_threshold)[0]
+        indexes = np.where(scores > self.predict_confidence_thres)[0]
         boxes = boxes[indexes]
 
         return {"boxes": boxes, "scores": scores[indexes], "classes": classes[indexes]}
@@ -281,6 +310,31 @@ class EfficientDetModel(pl.LightningModule):
                 scaled_bboxes.append(bboxes)
 
         return scaled_bboxes
+    
+    # @patch
+    def aggregate_prediction_outputs(self, outputs):
+        detections = torch.cat(
+            [output["batch_predictions"]["predictions"] for output in outputs]
+        )
+        image_ids = []
+        targets = []
+        for output in outputs:
+            batch_predictions = output["batch_predictions"]
+            image_ids.extend(batch_predictions["image_ids"])
+            targets.extend(batch_predictions["targets"])
+        (
+            predicted_bboxes,
+            predicted_class_confidences,
+            predicted_class_labels,
+        ) = self.post_process_detections(detections)
+
+        return (
+            predicted_class_labels,
+            image_ids,
+            predicted_bboxes,
+            predicted_class_confidences,
+            targets,
+        )
     
 
 if __name__ == '__main__':

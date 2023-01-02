@@ -1,6 +1,5 @@
 from models.EfficientDet import EfficientDetDataModule, EfficientDetModel
 from utils.model_helper import train_transform, val_transform
-from utils.image_helper import DataAdapter
 from pytorch_lightning import Trainer
 from argparse import ArgumentParser
 from pytorch_lightning.loggers import WandbLogger
@@ -8,7 +7,7 @@ import torch
 import yaml
 import pandas as pd
 
-def train_save(config, wandb, name):
+def train(config, wandb, name):
     if wandb == True:
         log = WandbLogger(
         project=config['project'],
@@ -27,15 +26,20 @@ def train_save(config, wandb, name):
     
     model = EfficientDetModel(inference_transforms=val_transform(img_size), 
                               backbone=config['backbone'],
+                              num_classes=2,
+                              img_size=img_size,
+                              predict_confidence_thres=config['predict_confidence_thres'],
+                              lr=config['lr'],
+                              iou_thres=config['iou_thres']
                               )
     trainer = Trainer(
             logger=log, 
             accelerator='auto',
             devices='auto',
             max_epochs=config['max_epochs'], 
-            val_check_interval=0.2,
-            num_sanity_val_steps=1,
-            log_every_n_steps=1,
+            val_check_interval=100,
+            num_sanity_val_steps=2,
+            log_every_n_steps=20,
         )
     trainer.fit(model, datamodule=module)
     torch.save(model.state_dict(), f"trained/EfficientDet/{config['backbone']}")
@@ -51,7 +55,7 @@ if __name__ == '__main__':
     
     with open(args.config_path, 'r') as stream:
         config = yaml.load(stream, yaml.FullLoader)
-    train_save(config, args.wandb, args.name)
+    train(config, args.wandb, args.name)
     # torch.save([1], f"trained/EfficientDet/{config['backbone']}")
     
     

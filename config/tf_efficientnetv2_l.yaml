@@ -1,6 +1,9 @@
 project: EffDet (tl_efficientnetv2_l backbone)
 path: data/self-data.csv
-batch_size: 2
+batch_size: 10
 img_size: 512
 backbone: tf_efficientnetv2_l
 max_epochs: 10
+predict_confidence_thres: 0.5
+lr: 0.0002
+iou_thres: 0.6

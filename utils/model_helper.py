@@ -7,7 +7,7 @@ from ensemble_boxes import ensemble_boxes_wbf
 from image_helper import DataAdapter, show_transform_image
 import albumentations as A
 
-def run_wbf(predictions, image_size=512, iou_thr=0.44, skip_box_thr=0.43, weights=None):
+def run_wbf(predictions, image_size=512, iou_thr=0.55, skip_box_thr=0.42, weights=None):
     bboxes = []
     confidences = []
     class_labels = []
