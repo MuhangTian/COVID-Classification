@@ -70,7 +70,6 @@ notebook==6.5.2
 notebook-shim==0.2.2
 numba==0.56.4
 numpy==1.23.5
-objdetecteval==0.1
 omegaconf==2.3.0
 opencv-python==4.7.0.68
 opencv-python-headless==4.7.0.68

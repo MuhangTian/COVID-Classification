@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader
 from fastcore.dispatch import typedispatch
-from objdetecteval.metrics.coco_metrics import get_coco_stats
+from objdetecteval.metrics.coco_metrics import get_coco_stats #pip install git+https://github.com/alexhock/object-detection-metrics
 from typing import List
 import pytorch_lightning as pl
 import torch
