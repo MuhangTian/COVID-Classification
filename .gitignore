@@ -1,7 +1,7 @@
 venv
 .DS_Store
-data/*
-!data/self-data.csv
 .vscode
 past_code
 wandb
+data/*
+!data/self-data.csv
