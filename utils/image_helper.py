@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import patches
 from PIL import Image
+import cv2
 
 def get_path(name): return 'data/self-data/images/{}'.format(name)
 def get_img(name): return Image.open(get_path(name))
@@ -40,7 +41,7 @@ def plot_image(df, img_name, figsize=(8,8)):
     """
     bbox = get_bbox(df, img_name)
     idx = df.index[df['filename'] == img_name].tolist()[0]
-    color = 'red' if df.loc[idx]['label'] == 'Positive' else 'tab:blue'
+    color = 'red' if df.loc[idx]['label'] == 1 else 'tab:blue'
     img = get_img(img_name)
     fig, ax = plt.subplots(1, figsize=figsize)
     ax.imshow(img)
@@ -53,8 +54,10 @@ def show_image(img, bbox, label, img_name=None, figsize=(8,8)):
     ''' Plot image along with bbox without dataframe '''
     fig, ax = plt.subplots(1, figsize=figsize)
     ax.imshow(img)
-    color = 'red' if label[0] == 'Positive' else 'tab:blue'
+    color = 'red' if label[0] == 1 else 'tab:blue'
     plot_bbox(ax, bbox[0], color)
+    
+    # print(img)
     plt.title(img_name)
     plt.axis('off')
     plt.show()
@@ -70,13 +73,13 @@ def show_transform_image(func, DA, val):
         name, img, bbox, label = DA.i_get(val)
     else: raise ValueError('Only filename or index allowed')
     img = np.array(img, dtype=np.float32)
+    img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
     transformed = func(image=img, bboxes=bbox, class_labels=label)
-    
     return show_image(transformed['image'], transformed['bboxes'], transformed['class_labels'], name)
 
 class DataAdapter:
-    def __init__(self, csv_path) -> None:
-        self.df = pd.read_csv(csv_path)
+    def __init__(self, df) -> None:
+        self.df = df
     
     def __len__(self): return self.df.shape[0]
     
@@ -89,17 +92,24 @@ class DataAdapter:
     def get_name(self, idx): return self.df.iloc[idx]['filename']
     
     def i_get(self, idx):
-        ''' Given index of the dataframe, returns name, image (PIL), bbox, label '''
+        ''' Given index of the dataframe
+        Returns: name, image, bbox, label '''
         name = get_name(self.df, idx)
+        id = int(name.replace('.jpg', ''))
         img = get_img(name)
+        img = np.array(img, dtype=np.float32)
+        img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
         bbox = get_bbox(self.df, name)
         label = self.df.iloc[idx]['label']
-        return name, img, [bbox], [label]
+        return id, img, [bbox], [label]
     
     def n_get(self, name):
-        ''' Given image name, returns dataframe index, image (PIL), bbox, label '''
+        ''' Given image name
+        Returns: dataframe index, image, bbox, label '''
         idx = get_idx(self.df, name)
         img = get_img(name)
+        img = np.array(img, dtype=np.float32)
+        img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
         bbox = get_bbox(self.df, name)
         label = self.df.iloc[idx]['label']
         return idx, img, [bbox], [label]
@@ -113,7 +123,8 @@ class DataAdapter:
         else: raise ValueError('Only index or image name allowed')
         
 if __name__ == '__main__':
-    DA = DataAdapter('data/self-data.csv')
-    DA.plot_img('162.jpg')
+    da = DataAdapter('data/self-data.csv')
+    print(da.i_get(0))
+    
     
     

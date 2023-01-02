@@ -149,6 +149,7 @@ def xml_csv(path, out_path, out_name):
                         except: dict[child3.tag] = [child3.text]
     df = pd.DataFrame(dict)
     df.replace('(.*)-', '', inplace=True, regex=True)
+    df['label'].replace({'Negative': 0, 'Positive': 1}, inplace=True)
     df = df.reindex(columns=['label', 'filename', 'width', 'height', 'depth', 'xmin', 'ymin', 'xmax', 'ymax'])
     df.to_csv('{}/{}.csv'.format(out_path, out_name), index=False)
     print('============== {}.csv created in <{}> =============='.format(out_name, out_path))
@@ -182,7 +183,7 @@ class EDA():
         print('Positive: {} Negative: {}\nPercent of positives: {}'.format(len(self.df[self.df['label'] == 'Positive']),
                                                                            len(self.df[self.df['label'] == 'Negative']),
                                                                            prop))
-        
+
 
 if __name__ == '__main__':
     xml_csv('data/self-data/Annotations', 'data', 'self-data')
