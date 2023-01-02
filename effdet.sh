@@ -10,5 +10,5 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun PYTHONPATH="/home/users/mt361/COVID-Classification:/home/users/mt361/COVID-Classification/utils:$PYTHONPATH" python3 -u run.py -wdb True
+srun python3 -u run.py -wdb True
 wait

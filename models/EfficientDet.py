@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '/home/users/mt361/COVID-Classification')
+sys.path.insert(0, '/home/users/mt361/COVID-Classification/utils')
 from utils.model_helper import create_model, run_wbf
 from utils.image_helper import DataAdapter
 from torch.utils.data import Dataset
