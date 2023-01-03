@@ -241,6 +241,9 @@ class EfficientDetModel(pl.LightningModule):
         return self._run_inference(images_tensor, image_sizes)
     
     def _run_inference(self, images_tensor, image_sizes):
+        # NOTE: the dummies do nothing here, merely exist for developing purposes (avoid to declare
+        # another class for models), it has no effect on performance since target only affect loss,
+        # which we don't care for this step
         dummy_targets = self._create_dummy_inference_targets(num_images=images_tensor.shape[0])
         detections = self.model(images_tensor.to(self.device), dummy_targets)["detections"]
         (
@@ -299,16 +302,8 @@ class EfficientDetModel(pl.LightningModule):
 
             if len(bboxes) > 0:
                 scaled_bboxes.append(
-                    (
-                        np.array(bboxes)
-                        * [
-                            im_w / self.img_size,
-                            im_h / self.img_size,
-                            im_w / self.img_size,
-                            im_h / self.img_size,
-                        ]
-                    ).tolist()
-                )
+                    (np.array(bboxes) * [im_w / self.img_size, im_h / self.img_size,
+                                        im_w / self.img_size, im_h / self.img_size]).tolist())
             else:
                 scaled_bboxes.append(bboxes)
 

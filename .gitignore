@@ -3,5 +3,4 @@ venv
 .vscode
 past_code
 wandb
-data/*
-!data/self-data.csv
+data/store-self-collected

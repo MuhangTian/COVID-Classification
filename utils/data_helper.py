@@ -149,10 +149,14 @@ def xml_csv(path, out_path, out_name):
                         except: dict[child3.tag] = [child3.text]
     df = pd.DataFrame(dict)
     df.replace('(.*)-', '', inplace=True, regex=True)
-    df['label'].replace({'Negative': 0, 'Positive': 1}, inplace=True)
+    df['label'].replace({'Negative': 1, 'Positive': 2}, inplace=True)
     df = df.reindex(columns=['label', 'filename', 'width', 'height', 'depth', 'xmin', 'ymin', 'xmax', 'ymax'])
-    df.to_csv('{}/{}.csv'.format(out_path, out_name), index=False)
-    print('============== {}.csv created in <{}> =============='.format(out_name, out_path))
+    df_train = df.sample(frac=0.8)
+    df_val = df.drop(df_train.index)
+    df_train.to_csv(f"{out_path}/{out_name}_train.csv", index=False)
+    df_val.to_csv(f"{out_path}/{out_name}_test.csv", index=False)
+    df.to_csv(f"{out_path}/{out_name}.csv", index=False)
+    print(f"============== csvs created in <{out_path}> ==============")
 
 class EDA():
     """
@@ -179,13 +183,15 @@ class EDA():
             plt.show()
 
     def label(self):
-        prop = 100*len(self.df[self.df['label'] == 'Positive'])/len(self.df['label'])
-        print('Positive: {} Negative: {}\nPercent of positives: {}'.format(len(self.df[self.df['label'] == 'Positive']),
-                                                                           len(self.df[self.df['label'] == 'Negative']),
+        prop = 100*len(self.df[self.df['label'] == 2])/len(self.df['label'])
+        print('Positive: {} Negative: {}\nPercent of positives: {}'.format(len(self.df[self.df['label'] == 2]),
+                                                                           len(self.df[self.df['label'] == 1]),
                                                                            prop))
 
 
 if __name__ == '__main__':
-    xml_csv('data/self-data/Annotations', 'data', 'self-data')
-    
+    # xml_csv('data/self-data/Annotations', 'data', 'self-data')
+    # print(pd.read_csv('data/self-data_train.csv').shape[0])
+    eda = EDA('data/self-data.csv')
+    print(eda.label())
     

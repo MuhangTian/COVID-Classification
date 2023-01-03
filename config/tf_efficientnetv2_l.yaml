@@ -7,3 +7,4 @@ max_epochs: 100
 predict_confidence_thres: 0.5
 lr: 0.0002
 iou_thres: 0.6
+name: 'First Attempt'

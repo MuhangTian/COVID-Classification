@@ -7,11 +7,22 @@ import torch
 import yaml
 import pandas as pd
 
-def train(config, wandb, name):
+'''
+list of available models from effdet library:
+
+['efficientdet_d0', 'efficientdet_d3', 'efficientdetv2_dt', 'cspresdet50', 
+'cspdarkdet53', 'mixdet_l', 'mobiledetv3_large', 'efficientdet_q2', 
+'efficientdet_em', 'tf_efficientdet_d1', 'tf_efficientdet_d4', 
+'tf_efficientdet_d7', 'tf_efficientdet_d1_ap', 'tf_efficientdet_d4_ap', 
+'tf_efficientdet_lite1', 'tf_efficientdet_lite3x']
+
+For more details: https://github.com/rwightman/efficientdet-pytorch
+'''
+def train(config, wandb):
     if wandb == True:
         log = WandbLogger(
         project=config['project'],
-        name=name
+        name=config['name']
         )
     else: log = True
     img_size = config['img_size']
@@ -37,7 +48,7 @@ def train(config, wandb, name):
             accelerator='auto',
             devices='auto',
             max_epochs=config['max_epochs'], 
-            val_check_interval=0.2,
+            val_check_interval=1,
             num_sanity_val_steps=2,
             log_every_n_steps=20,
         )
@@ -46,16 +57,14 @@ def train(config, wandb, name):
     return print('===================== DONE =====================')
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description="basic parser for bandit problem")
+    parser = ArgumentParser(description="parser for EfficientDet")
     parser.add_argument('-p', dest='config_path', type=str,
-                        default='config/tf_efficientnetv2_l.yaml')
+                        default='config/tf_efficientdet_d6.yaml')
     parser.add_argument('-wdb', dest='wandb', type=bool, default=False)
-    parser.add_argument('-n', dest='name', type=str, default='First Trial')
     args = parser.parse_args()
     
     with open(args.config_path, 'r') as stream:
         config = yaml.load(stream, yaml.FullLoader)
-    train(config, args.wandb, args.name)
-    # torch.save([1], f"trained/EfficientDet/{config['backbone']}")
+    train(config, args.wandb)
     
     

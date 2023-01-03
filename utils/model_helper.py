@@ -6,6 +6,7 @@ from albumentations.pytorch.transforms import ToTensorV2
 from ensemble_boxes import ensemble_boxes_wbf
 from image_helper import DataAdapter, show_transform_image
 import albumentations as A
+import pandas as pd
 
 def run_wbf(predictions, image_size=512, iou_thr=0.55, skip_box_thr=0.42, weights=None):
     bboxes = []
@@ -36,13 +37,17 @@ def create_model(classes, img_size, backbone, pretrain=True, drop_rate=0.2):
     """
     create instance of the EfficientDet model
     """
-    efficientdet_model_param_dict[backbone] = {
-        'name': backbone, 
-        'backbone_name': backbone,
-        'backbone_args': {'drop_path_rate': drop_rate}, 
-        'num_classes': classes, 
-        'url': ''}
-    config = get_efficientdet_config(backbone)
+    if 'efficientdet' in backbone:  # if using already registered models
+        config = get_efficientdet_config(backbone)
+    else:        # if DIY our own model
+        efficientdet_model_param_dict[backbone] = {
+            'name': backbone, 
+            'backbone_name': backbone,
+            'backbone_args': {'drop_path_rate': drop_rate}, 
+            'num_classes': classes, 
+            'url': ''}
+        config = get_efficientdet_config(backbone)
+        
     config.update({'num_classes': classes})
     config.update({'image_size': (img_size, img_size)})
     
@@ -51,7 +56,7 @@ def create_model(classes, img_size, backbone, pretrain=True, drop_rate=0.2):
         config,
         num_outputs=config.num_classes,
     )
-    print('Model created, config:\n{}'.format(config))
+    print('{}'.format(config))   # print config
     return DetBenchTrain(net, config)
 
 def train_transform(img_size=512):
@@ -89,18 +94,21 @@ def val_transform(img_size=512):    # CHECK: may need another for test set
     )
 
 if __name__ == '__main__':
-    transform = A.Compose(
-        [
-        A.Resize(height=512, width=512, p=1),
-        A.Normalize(),
-        # A.RandomBrightnessContrast(p=1),
-        # A.RandomGamma(p=1),
-        ],
-        p=1.0,
-        bbox_params=A.BboxParams(format="pascal_voc", 
-                                 label_fields=["class_labels"]),
-    )
-    da = DataAdapter('data/self-data.csv')
-    for i in range(1, 1500):
-        try: show_transform_image(transform, da, i)
-        except: pass
+    # transform = A.Compose(
+    #     [
+    #     A.Resize(height=1024, width=1024, p=1),
+    #     A.Normalize(),
+    #     # A.RandomBrightnessContrast(p=1),
+    #     # A.RandomGamma(p=1),
+    #     ],
+    #     p=1.0,
+    #     bbox_params=A.BboxParams(format="pascal_voc", 
+    #                              label_fields=["class_labels"]),
+    # )
+    
+    # da = DataAdapter(pd.read_csv('data/self-data.csv'))
+    # for i in range(1, 1500):
+    #     try: show_transform_image(transform, da, i)
+    #     except: pass
+    
+    print(list(efficientdet_model_param_dict.keys())[::3])

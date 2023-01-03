@@ -1,0 +1,10 @@
+project: EffDet (efficientnetv2_ds backbone)
+path: data/self-data.csv
+batch_size: 10
+img_size: 1024
+backbone: efficientnetv2_ds
+max_epochs: 1200
+predict_confidence_thres: 0.5
+lr: 0.0002
+iou_thres: 0.6
+name: EfficientNetV2 DS

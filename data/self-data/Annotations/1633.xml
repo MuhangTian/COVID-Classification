@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+<folder>images</folder>
+<filename>c4d5ca18-1633.jpg</filename>
+<source>
+<database>MyDatabase</database>
+<annotation>COCO2017</annotation>
+<image>flickr</image>
+<flickrid>NULL</flickrid>
+<annotator>1</annotator>
+</source>
+<owner>
+<flickrid>NULL</flickrid>
+<name>Label Studio</name>
+</owner>
+<size>
+<width>333</width>
+<height>773</height>
+<depth>4</depth>
+</size>
+<segmented>0</segmented>
+<object>
+<name>Negative</name>
+<pose>Unspecified</pose>
+<truncated>0</truncated>
+<difficult>0</difficult>
+<bndbox>
+<xmin>110</xmin>
+<ymin>325</ymin>
+<xmax>218</xmax>
+<ymax>447</ymax>
+</bndbox>
+</object>
+</annotation>
