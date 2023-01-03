@@ -37,7 +37,7 @@ def train(config, wandb, name):
             accelerator='auto',
             devices='auto',
             max_epochs=config['max_epochs'], 
-            val_check_interval=100,
+            val_check_interval=0.2,
             num_sanity_val_steps=2,
             log_every_n_steps=20,
         )
