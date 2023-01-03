@@ -3,7 +3,8 @@
 #SBATCH --job-name=EffDetD6
 #SBATCH --time=30-00:00:00
 #SBATCH -n 1
-#SBATCH --gpus-per-task=4
+#SBATCH --nodelist=gpu-compute5
+#SBATCH --gpus-per-task=8
 #SBATCH --mem=100G
 #SBATCH --mail-user=muhang.tian@duke.edu
 #SBATCH --output=EffDetD6.out
