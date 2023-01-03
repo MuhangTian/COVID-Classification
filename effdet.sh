@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=4
 #SBATCH --mem=100G
 #SBATCH --mail-user=muhang.tian@duke.edu
-#SBATCH --output=None
+#SBATCH --output=EffDet
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
