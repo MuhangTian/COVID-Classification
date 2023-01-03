@@ -1,6 +1,6 @@
 project: EffDet (tf_efficientdet_d6 backbone)
 path: data/self-data.csv
-batch_size: 10
+batch_size: 6
 img_size: 1280
 backbone: tf_efficientdet_d6
 max_epochs: 1500
