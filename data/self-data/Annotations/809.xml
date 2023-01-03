@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+<folder>images</folder>
+<filename>e3e33abd-809.jpg</filename>
+<source>
+<database>MyDatabase</database>
+<annotation>COCO2017</annotation>
+<image>flickr</image>
+<flickrid>NULL</flickrid>
+<annotator>1</annotator>
+</source>
+<owner>
+<flickrid>NULL</flickrid>
+<name>Label Studio</name>
+</owner>
+<size>
+<width>108</width>
+<height>632</height>
+<depth>4</depth>
+</size>
+<segmented>0</segmented>
+<object>
+<name>Positive</name>
+<pose>Unspecified</pose>
+<truncated>0</truncated>
+<difficult>0</difficult>
+<bndbox>
+<xmin>28</xmin>
+<ymin>235</ymin>
+<xmax>87</xmax>
+<ymax>348</ymax>
+</bndbox>
+</object>
+</annotation>
