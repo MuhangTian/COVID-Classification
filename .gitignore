@@ -3,4 +3,12 @@ venv
 .vscode
 past_code
 wandb
+effdet/__pycache__
+effdet/config/__pycache__
+effdet/data/__pycache__
+effdet/data/parsers/__pycache__
+effdet/evaluation/__pycache__
+effdet/object_detection/__pycache__
+models/__pycache__
+utils/__pycache__
 data/store-self-collected
