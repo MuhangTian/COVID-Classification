@@ -3,7 +3,7 @@ path: data/self-data.csv
 batch_size: 10
 img_size: 1280
 backbone: tf_efficientdet_d6
-max_epochs: 1500
+max_epochs: 2500
 predict_confidence_thres: 0.6
 lr: 0.0002
 iou_thres: 0.6
