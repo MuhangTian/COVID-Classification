@@ -10,5 +10,5 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun python3 -u run.py -wdb True -p 'config/tf_efficientdet_d4.yaml'
+srun python3 -u run.py -wdb True -p 'config/tf_efficientdet_d2.yaml'
 wait

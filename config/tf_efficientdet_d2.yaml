@@ -1,8 +1,8 @@
-project: EffDet (tf_efficientdet_d4 backbone)
+project: EffDet (tf_efficientdet_d2 backbone)
 path: data/self-data.csv
 batch_size: 6
-img_size: 1024
-backbone: tf_efficientdet_d4
+img_size: 768
+backbone: tf_efficientdet_d2
 max_epochs: 1500
 predict_confidence_thres: 0.6
 lr: 0.0002
