@@ -5,6 +5,7 @@
 #SBATCH -n 1
 #SBATCH --gpus-per-task=4
 #SBATCH --mem=100G
+#SBATCH --mem-per-gpu=5G
 #SBATCH --mail-user=muhang.tian@duke.edu
 #SBATCH --output=EffDetD6.out
 #SBATCH --mail-type=END
