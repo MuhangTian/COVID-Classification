@@ -1,10 +1,10 @@
 wandb: Currently logged in as: muhang-tian. Use `wandb login --relogin` to force relogin
 wandb: Tracking run with wandb version 0.13.7
-wandb: Run data is saved locally in ./wandb/run-20230103_015354-2ey5fseq
+wandb: Run data is saved locally in ./wandb/run-20230103_015754-29x87jmt
 wandb: Run `wandb offline` to turn off syncing.
 wandb: Syncing run EfficientDetD6
 wandb: ⭐️ View project at https://wandb.ai/muhang-tian/EffDet%20%28tf_efficientdet_d6%20backbone%29
-wandb: 🚀 View run at https://wandb.ai/muhang-tian/EffDet%20%28tf_efficientdet_d6%20backbone%29/runs/2ey5fseq
+wandb: 🚀 View run at https://wandb.ai/muhang-tian/EffDet%20%28tf_efficientdet_d6%20backbone%29/runs/29x87jmt
 {'name': 'tf_efficientdet_d6', 'backbone_name': 'tf_efficientnet_b6', 'backbone_args': {'drop_path_rate': 0.2}, 'backbone_indices': None, 'image_size': [1280, 1280], 'num_classes': 2, 'min_level': 3, 'max_level': 7, 'num_levels': 5, 'num_scales': 3, 'aspect_ratios': [[1.0, 1.0], [1.4, 0.7], [0.7, 1.4]], 'anchor_scale': 4.0, 'pad_type': 'same', 'act_type': 'swish', 'norm_layer': None, 'norm_kwargs': {'eps': 0.001, 'momentum': 0.01}, 'box_class_repeats': 5, 'fpn_cell_repeats': 8, 'fpn_channels': 384, 'separable_conv': True, 'apply_resample_bn': True, 'conv_bn_relu_pattern': False, 'downsample_type': 'max', 'upsample_type': 'nearest', 'redundant_bias': True, 'head_bn_level_first': False, 'head_act_type': None, 'fpn_name': 'bifpn_sum', 'fpn_config': None, 'fpn_drop_path_rate': 0.0, 'alpha': 0.25, 'gamma': 1.5, 'label_smoothing': 0.0, 'legacy_focal': False, 'jit_loss': False, 'delta': 0.1, 'box_loss_weight': 50.0, 'soft_nms': False, 'max_detection_points': 5000, 'max_det_per_image': 100, 'url': 'https://github.com/rwightman/efficientdet-pytorch/releases/download/v0.1/tf_efficientdet_d6_52-4eda3773.pth'}
 GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
@@ -30,7 +30,7 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
 SLURM auto-requeueing enabled. Setting signal handlers.
 /home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/utils/data/dataloader.py:554: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
-/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/pytorch_lightning/utilities/data.py:85: UserWarning: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 10. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/pytorch_lightning/utilities/data.py:85: UserWarning: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 6. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
   warning_cache.warn(
 /home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:233: UserWarning: You called `self.log('Average Precision', ...)` in your `validation_epoch_end` but the value needs to be floating point. Converting it to torch.float32.
   warning_cache.warn(
@@ -143,21 +143,17 @@ Traceback (most recent call last):
     input = module(input)
   File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
     return forward_call(*input, **kwargs)
-  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/timm/models/efficientnet_blocks.py", line 182, in forward
-    x = self.bn1(x)
+  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/timm/models/efficientnet_blocks.py", line 183, in forward
+    x = self.conv_dw(x)
   File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
     return forward_call(*input, **kwargs)
-  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/timm/models/layers/norm_act.py", line 112, in forward
-    x = self.act(x)
-  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/modules/activation.py", line 395, in forward
-    return F.silu(input, inplace=self.inplace)
-  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/functional.py", line 2058, in silu
-    return torch._C._nn.silu_(input)
-torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.93 GiB (GPU 0; 23.69 GiB total capacity; 19.44 GiB already allocated; 2.34 GiB free; 19.96 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 463, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/users/mt361/miniconda3/envs/covid-cv/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 459, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 564.00 MiB (GPU 0; 23.69 GiB total capacity; 21.20 GiB already allocated; 104.25 MiB free; 22.20 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
 wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: - 0.006 MB of 0.006 MB uploaded (0.000 MB deduped)wandb: \ 0.028 MB of 0.028 MB uploaded (0.000 MB deduped)wandb: Synced EfficientDetD6: https://wandb.ai/muhang-tian/EffDet%20%28tf_efficientdet_d6%20backbone%29/runs/2ey5fseq
+wandb: - 0.006 MB of 0.006 MB uploaded (0.000 MB deduped)wandb: \ 0.006 MB of 0.024 MB uploaded (0.000 MB deduped)wandb: | 0.028 MB of 0.028 MB uploaded (0.000 MB deduped)wandb: Synced EfficientDetD6: https://wandb.ai/muhang-tian/EffDet%20%28tf_efficientdet_d6%20backbone%29/runs/29x87jmt
 wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20230103_015354-2ey5fseq/logs
-Sanity Checking: 0it [00:00, ?it/s]Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:05<00:05,  5.12s/it]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:07<00:00,  3.62s/it]                                                                           Training: 0it [00:00, ?it/s]Training:   0%|          | 0/330 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/330 [00:00<?, ?it/s] srun: error: linux44: task 0: Exited with exit code 1
+wandb: Find logs at: ./wandb/run-20230103_015754-29x87jmt/logs
+Sanity Checking: 0it [00:00, ?it/s]Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:03<00:03,  3.84s/it]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:05<00:00,  2.80s/it]                                                                           Training: 0it [00:00, ?it/s]Training:   0%|          | 0/900 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/900 [00:00<?, ?it/s] srun: error: linux44: task 0: Exited with exit code 1
