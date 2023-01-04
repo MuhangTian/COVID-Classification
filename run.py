@@ -3,6 +3,7 @@ from utils.model_helper import train_transform, val_transform
 from pytorch_lightning import Trainer
 from argparse import ArgumentParser
 from pytorch_lightning.loggers import WandbLogger
+import wandb
 import torch
 import yaml
 import pandas as pd
@@ -41,7 +42,8 @@ def train(config, wandb):
                               img_size=img_size,
                               predict_confidence_thres=config['predict_confidence_thres'],
                               lr=config['lr'],
-                              iou_thres=config['iou_thres']
+                              iou_thres=config['iou_thres'],
+                              optimizer=config['optimizer']
                               )
     trainer = Trainer(
             logger=log, 
@@ -66,5 +68,7 @@ if __name__ == '__main__':
     with open(args.config_path, 'r') as stream:
         config = yaml.load(stream, yaml.FullLoader)
     train(config, args.wandb)
+    
+    
     
     

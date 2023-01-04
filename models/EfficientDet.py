@@ -125,6 +125,7 @@ class EfficientDetModel(pl.LightningModule):
         predict_confidence_thres=0.2,
         lr=0.0002,
         iou_thres=0.44,
+        optimizer='AdamW'
     ):
         super().__init__()
         self.img_size = img_size
@@ -133,12 +134,19 @@ class EfficientDetModel(pl.LightningModule):
         self.lr = lr
         self.iou_thres = iou_thres
         self.inference_tfms = inference_transforms
+        self.optimizer = optimizer
 
     def forward(self, images, targets):
         return self.model(images, targets)
 
-    def configure_optimizers(self): # TODO: may need to consider other optimizers in future
-        return torch.optim.AdamW(self.model.parameters(), lr=self.lr)
+    def configure_optimizers(self):
+        if self.optimizer == 'AdamW':
+            return torch.optim.AdamW(self.model.parameters(), lr=self.lr)
+        elif self.optimizer == 'SGD':
+            return torch.optim.SGD(self.model.parameters(), lr=self.lr)
+        elif self.optimizer == 'Adam':
+            return torch.optim.Adam(self.model.parameters(), lr=self.lr)
+        
     
     def training_step(self, batch, batch_idx):
         images, annotations, _, image_ids = batch
