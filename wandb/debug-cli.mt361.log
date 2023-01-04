@@ -1,0 +1,16 @@
+2023-01-04 17:09:02 INFO Running runs: []
+2023-01-04 17:09:03 INFO Agent received command: run
+2023-01-04 17:09:03 INFO Agent starting run with config:
+	backbone: efficientdetv2_ds
+	batch_size: [2, 4, 6, 8]
+	img_size: 1024
+	iou_thres: [0.4, 0.5, 0.6, 0.7, 0.8]
+	lr: [0.01, 0.001, 0.0001, 1e-05]
+	max_epochs: 300
+	optimizer: ['AdamW', 'SGD', 'Adam']
+	path: data/self-data.csv
+	predict_confidence_thres: [0.4, 0.5, 0.6, 0.7, 0.8]
+2023-01-04 17:09:03 INFO About to run command: /usr/bin/env python3 run.py
+2023-01-04 17:09:08 INFO Running runs: ['ulwnp83n']
+2023-01-04 17:09:18 INFO Cleaning up finished run: ulwnp83n
+2023-01-04 17:09:24 INFO Running runs: []

@@ -1,0 +1,41 @@
+wandb_version: 1
+
+backbone:
+  value: efficientdetv2_ds
+batch_size:
+  value:
+  - 2
+  - 4
+  - 6
+  - 8
+img_size:
+  value: 1024
+iou_thres:
+  value:
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+lr:
+  value:
+  - 0.01
+  - 0.001
+  - 0.0001
+  - 1.0e-05
+max_epochs:
+  value: 300
+optimizer:
+  value:
+  - AdamW
+  - SGD
+  - Adam
+path:
+  value: data/self-data.csv
+predict_confidence_thres:
+  value:
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
