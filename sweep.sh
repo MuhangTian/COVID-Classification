@@ -9,5 +9,5 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun wandb agent "muhang-tian/EfficientDetV2 DS Sweep/40w0285y"
+srun wandb agent "muhang-tian/EfficientDetV2 DS Sweep/opnlap5u"
 wait
