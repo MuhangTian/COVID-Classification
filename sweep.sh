@@ -5,9 +5,9 @@
 #SBATCH --gpus-per-task=4
 #SBATCH --mem=100G
 #SBATCH --mail-user=muhang.tian@duke.edu
-#SBATCH --output=None
+#SBATCH --output=sweep.out
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun wandb agent "muhang-tian/EfficientDetV2 DS Sweep/opnlap5u"
+srun wandb agent "muhang-tian/EfficientDetV2 DS Sweep/f23ux2xu"
 wait
