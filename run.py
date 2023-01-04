@@ -59,7 +59,7 @@ def train(config, wandb):
 if __name__ == '__main__':
     parser = ArgumentParser(description="parser for EfficientDet")
     parser.add_argument('-p', dest='config_path', type=str,
-                        default='config/efficientnetv2_ds.yaml')
+                        default='config/tf_efficientdet_d2.yaml')
     parser.add_argument('-wdb', dest='wandb', type=bool, default=False)
     args = parser.parse_args()
     
