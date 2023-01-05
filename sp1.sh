@@ -9,4 +9,4 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun CUDA_VISIBLE_DEVICES=1 wandb agent --count 1 "muhang-tian/EfficientDet D0 Sweep/jzdyll97" 
+CUDA_VISIBLE_DEVICES=1 wandb agent --count 1 "muhang-tian/EfficientDet D0 Sweep/jzdyll97" 
