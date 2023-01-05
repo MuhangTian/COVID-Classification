@@ -9,6 +9,7 @@ from torch.utils.data import DataLoader
 from fastcore.dispatch import typedispatch
 from objdetecteval.metrics.coco_metrics import get_coco_stats #pip install git+https://github.com/alexhock/object-detection-metrics
 from typing import List
+import wandb
 import pytorch_lightning as pl
 import torch
 import numpy as np
@@ -151,9 +152,9 @@ class EfficientDetModel(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         images, annotations, _, image_ids = batch
         losses = self.model(images, annotations)
-        self.log('Train Loss', losses['loss'].detach())
-        self.log('Train Classification Loss', losses["class_loss"].detach())
-        self.log('Train Localization Loss', losses["box_loss"].detach())
+        wandb.log({'Train Loss': losses['loss'].detach()})
+        wandb.log({'Train Classification Loss': losses["class_loss"].detach()})
+        wandb.log({'Train Localization Loss': losses["box_loss"].detach()})
         return losses['loss']
     
     @torch.no_grad()    
@@ -166,9 +167,9 @@ class EfficientDetModel(pl.LightningModule):
             "targets": targets,
             "image_ids": image_ids,
         }
-        self.log('Validation Loss', outputs["loss"])
-        self.log('Validation Classification Loss', outputs["class_loss"].detach())
-        self.log('Validation Localization Loss', outputs["box_loss"].detach())
+        wandb.log({'Validation Loss': outputs["loss"]})
+        wandb.log({'Validation Classification Loss': outputs["class_loss"].detach()})
+        wandb.log({'Validation Localization Loss': outputs["box_loss"].detach()})
         # predicted_bboxes, predicted_class_confidences, predicted_class_labels = self.predict(images)
         return {'loss': outputs["loss"], 'batch_predictions': batch_predictions}
     
@@ -201,8 +202,8 @@ class EfficientDetModel(pl.LightningModule):
             target_class_labels=truth_labels,
         )['All']
         
-        self.log('Average Precision', stats['AP_all'])
-        self.log('Average Recall', stats['AR_all'])
+        wandb.log({'Average Precision': stats['AP_all']})
+        wandb.log({'Average Recall': stats['AR_all']})
         
         return {"val_loss": validation_loss_mean, "metrics": stats}
     

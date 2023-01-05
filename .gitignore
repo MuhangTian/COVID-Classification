@@ -11,5 +11,4 @@ effdet/evaluation/__pycache__
 effdet/object_detection/__pycache__
 models/__pycache__
 utils/__pycache__
-EffDet (tf_efficientdet_d2 backbone)
 data/store-self-collected

@@ -7,21 +7,21 @@ parameters:
   path:
     value: data/self-data.csv
   batch_size: 
-    value: [2,4,6,8]
+    values: [5,10,15,20]
   img_size: 
     value: 1024
   backbone:
     value: efficientdetv2_ds
   max_epochs:
-    value: 300
+    value: 120
   predict_confidence_thres:
-    value: [0.4, 0.5, 0.6, 0.7, 0.8]
+    values: [0.5, 0.65, 0.8]
   lr: 
-    value: [0.01, 0.001, 0.0001, 0.00001]
+    values: [0.01, 0.001, 0.0001, 0.00001]
   iou_thres: 
-    value: [0.4, 0.5, 0.6, 0.7, 0.8]
+    values: [0.5, 0.65, 0.8]
   optimizer:
-    value: ['AdamW', 'SGD', 'Adam']
+    values: ['AdamW', 'SGD']
 command:
   - ${env}
   - python3
