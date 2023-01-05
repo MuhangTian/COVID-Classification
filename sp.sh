@@ -9,21 +9,21 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDet D0 Sweep/0tzeqidi" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
 wait

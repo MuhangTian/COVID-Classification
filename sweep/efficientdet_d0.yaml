@@ -33,5 +33,5 @@ command:
   - python3
   - ${program}
 
-project: EfficientDet D0 Sweep
+project: EfficientDetD0 Sweep (Random)
 name: EfficientDet D0
