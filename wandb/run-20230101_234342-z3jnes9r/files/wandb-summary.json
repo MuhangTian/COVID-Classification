@@ -1,1 +1,0 @@
-{"Train Loss": 608.4779052734375, "Train Class Loss": 605.4472045898438, "Train Box Loss": 0.06061454117298126, "epoch": 0, "trainer/global_step": 1, "_timestamp": 1672634806.6367621, "_runtime": 184.15810322761536, "_step": 1, "_wandb": {"runtime": 210}}

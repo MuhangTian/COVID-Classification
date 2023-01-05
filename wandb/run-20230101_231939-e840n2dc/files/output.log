@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/mt361/Desktop/COVID_CV/COVID-Classification/run.py", line 37, in <module>
-    train_save(config, args.wandb)
-  File "/Users/mt361/Desktop/COVID_CV/COVID-Classification/run.py", line 20, in train_save
-    num_workers=config['num_workers'],
-KeyError: 'num_workers'
