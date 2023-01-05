@@ -70,7 +70,6 @@ def run(config, wdb, mode):
     )
     trainer = Trainer(
                     accelerator='auto',
-                    devices='auto',
                     max_epochs=max_epochs, 
                     val_check_interval=1,
                     num_sanity_val_steps=1,
