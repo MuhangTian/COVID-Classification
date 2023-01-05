@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=SP-EffDet
-#SBATCH --time=180-00:00:00
+#SBATCH --time=15-00:00:00
 #SBATCH -n 1
 #SBATCH --gpus-per-task=4
 #SBATCH --mem=100G
