@@ -73,9 +73,8 @@ def run(config, wdb, mode):
                     max_epochs=max_epochs, 
                     val_check_interval=1,
                     num_sanity_val_steps=1,
-                    log_every_n_steps=50,
-                    strategy='ddp',      # NOTE: for GPUs in cluster
-                    devices=2,         # NOTE: for GPUS in cluster
+                    log_every_n_steps=50,   
+                    devices=1,     
     )
     
     trainer.fit(model, datamodule=module)
