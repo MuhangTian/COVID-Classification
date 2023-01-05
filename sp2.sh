@@ -9,4 +9,4 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun wandb agent --count 1 "muhang-tian/EfficientDet D0 Sweep/jzdyll97" &
+srun wandb agent --count 1 "muhang-tian/EfficientDet D0 Sweep/jzdyll97" 
