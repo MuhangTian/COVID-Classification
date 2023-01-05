@@ -9,9 +9,9 @@ parameters:
   batch_size: 
     values: [4, 8, 12, 16]
   img_size: 
-    value: 640
+    value: 512
   backbone:
-    value: efficientdet_q1
+    value: efficientdet_d0
   max_epochs:
     value: 100
   predict_confidence_thres:
@@ -27,5 +27,5 @@ command:
   - python3
   - ${program}
 
-project: EfficientDetQ1 Sweep
-name: EfficientDet Q1
+project: EfficientDet D0 Sweep
+name: EfficientDet D0
