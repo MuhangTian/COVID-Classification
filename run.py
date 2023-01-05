@@ -75,6 +75,8 @@ def run(config, wdb, mode):
                     val_check_interval=1,
                     num_sanity_val_steps=1,
                     log_every_n_steps=50,
+                    strategy='dp',      # NOTE: for GPUs in cluster
+                    devices=10,         # NOTE: for GPUS in cluster
     )
     
     trainer.fit(model, datamodule=module)
