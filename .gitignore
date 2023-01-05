@@ -2,7 +2,7 @@ venv
 .DS_Store
 .vscode
 past_code
-wandbs
+wandb
 effdet/__pycache__
 effdet/config/__pycache__
 effdet/data/__pycache__
