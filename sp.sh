@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=SP-EffDet
 #SBATCH --time=90-00:00:00
-#SBATCH -n 10
-#SBATCH --nodes=10
+#SBATCH -n 1
 #SBATCH --gpus-per-task=4
 #SBATCH --mem-per-gpu=10G
 #SBATCH --mail-user=muhang.tian@duke.edu
@@ -10,15 +9,4 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --nodes=1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-wait
+srun wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
