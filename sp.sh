@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=SP-EffDet
 #SBATCH --time=90-00:00:00
-#SBATCH -n 8
+#SBATCH -n 7
 #SBATCH --gpus-per-task=4
 #SBATCH --mem-per-gpu=10G
 #SBATCH --mail-user=muhang.tian@duke.edu
