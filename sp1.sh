@@ -2,7 +2,7 @@
 #SBATCH --job-name=SP-EffDet
 #SBATCH --time=90-00:00:00
 #SBATCH --array=1-20
-#SBATCH --n 1
+#SBATCH -n 1
 #SBATCH --gpus-per-task=1
 #SBATCH --mem-per-gpu=30G
 #SBATCH --mail-user=muhang.tian@duke.edu
