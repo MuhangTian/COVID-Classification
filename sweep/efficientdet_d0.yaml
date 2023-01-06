@@ -32,4 +32,4 @@ command:
   - ${program}
 
 project: EfficientDetD0 Sweep (Random)
-name: EfficientDet D0
+name: EfficientDet D0 Initial Sweep
