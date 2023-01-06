@@ -4,12 +4,10 @@ metric:
   goal: maximize
   name: Average Precision
 parameters:
-  path:
-    value: data/self-data.csv
   batch_size: 
     distribution: int_uniform
-    min: 3
-    max: 25
+    min: 2
+    max: 19
   img_size: 
     value: 512
   backbone:
@@ -27,7 +25,7 @@ parameters:
     mu: 0.6
     sigma: 0.2
   optimizer:
-    values: ['AdamW', 'SGD']
+    values: ['AdamW', 'SGD', 'Adam']
 command:
   - ${env}
   - python3

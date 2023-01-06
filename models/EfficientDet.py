@@ -136,6 +136,7 @@ class EfficientDetModel(pl.LightningModule):
         self.iou_thres = iou_thres
         self.inference_tfms = inference_transforms
         self.optimizer = optimizer
+        self.my_epoch = 0
 
     def forward(self, images, targets):
         return self.model(images, targets)
@@ -155,6 +156,9 @@ class EfficientDetModel(pl.LightningModule):
         wandb.log({'Train Loss': losses['loss'].detach()})
         wandb.log({'Train Classification Loss': losses["class_loss"].detach()})
         wandb.log({'Train Localization Loss': losses["box_loss"].detach()})
+        if self.my_epoch != self.current_epoch:
+            self.my_epoch = self.current_epoch
+            wandb.log({'Epoch': self.my_epoch})
         return losses['loss']
     
     @torch.no_grad()    
@@ -170,7 +174,7 @@ class EfficientDetModel(pl.LightningModule):
         wandb.log({'Validation Loss': outputs["loss"]})
         wandb.log({'Validation Classification Loss': outputs["class_loss"].detach()})
         wandb.log({'Validation Localization Loss': outputs["box_loss"].detach()})
-        # predicted_bboxes, predicted_class_confidences, predicted_class_labels = self.predict(images)
+            
         return {'loss': outputs["loss"], 'batch_predictions': batch_predictions}
     
     def validation_epoch_end(self, outputs):

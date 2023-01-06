@@ -25,11 +25,9 @@ def run(config, wdb, mode):
             project=config['project'],
             config=config)
         config = wandb.config
-        
     # --------------------- get hyperparameters based on mode ---------------------
     if mode == 'train':
         img_size = config['img_size']
-        path = config['path']
         batch_size = config['batch_size']
         backbone = config['backbone']
         predict_confidence_thres = config['predict_confidence_thres']
@@ -39,7 +37,6 @@ def run(config, wdb, mode):
         max_epochs = config['max_epochs']
     elif mode == 'grid':
         img_size = wandb.config.img_size
-        path = wandb.config.path
         batch_size = wandb.config.batch_size
         backbone = wandb.config.backbone
         predict_confidence_thres = wandb.config.predict_confidence_thres
@@ -49,8 +46,7 @@ def run(config, wdb, mode):
         max_epochs = wandb.config.max_epochs
     else: raise ValueError('Only train or grid allowed as mode')
     # -----------------------------------------------------------------------------
-    
-    df = pd.read_csv(path)
+    df = pd.read_csv('data/self-data-TRAIN.csv')
     module = EfficientDetDataModule( # CHECK: may need to implement test_loader() for test set inside this class
         df=df,
         frac=0.75,
@@ -74,7 +70,8 @@ def run(config, wdb, mode):
                     val_check_interval=1,
                     num_sanity_val_steps=1,
                     log_every_n_steps=50,   
-                    devices=1,     
+                    devices=4,
+                    strategy='ddp',
     )
     
     trainer.fit(model, datamodule=module)
