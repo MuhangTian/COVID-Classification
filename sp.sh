@@ -3,7 +3,7 @@
 #SBATCH --time=90-00:00:00
 #SBATCH -n 20
 #SBATCH --gpus-per-task=1
-#SBATCH --mem-per-gpu=40G
+#SBATCH --mem-per-gpu=50G
 #SBATCH --mail-user=muhang.tian@duke.edu
 #SBATCH --output=None
 #SBATCH --mail-type=END
