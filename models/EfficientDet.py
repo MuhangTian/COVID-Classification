@@ -13,7 +13,6 @@ import wandb
 import pytorch_lightning as pl
 import torch
 import numpy as np
-import pandas as pd
 
 class EfficientDetDataset(Dataset):
     """
@@ -41,7 +40,8 @@ class EfficientDetDataset(Dataset):
         label = transformed["class_labels"]
 
         _, height, width = img.shape    # the first is channel (depth), not needed
-        transformed["bboxes"][:, [0, 1, 2, 3]] = transformed["bboxes"][:, [1, 0, 3, 2]]  # convert to yxyx
+        # NOTE: Commented out since PyTorch models operate on XYXY, but TF models in YXYX
+        # transformed["bboxes"][:, [0, 1, 2, 3]] = transformed["bboxes"][:, [1, 0, 3, 2]]  # convert to YXYX
         target = {
             "bboxes": torch.as_tensor(transformed["bboxes"], dtype=torch.float32),
             "labels": torch.as_tensor(label),
@@ -145,7 +145,8 @@ class EfficientDetModel(pl.LightningModule):
         if self.optimizer == 'AdamW':
             return torch.optim.AdamW(self.model.parameters(), lr=self.lr)
         elif self.optimizer == 'SGD':
-            return torch.optim.SGD(self.model.parameters(), lr=self.lr)
+            # TODO: currently use 0.9, may need to tune it later
+            return torch.optim.SGD(self.model.parameters(), lr=self.lr, momentum=0.9)
         elif self.optimizer == 'Adam':
             return torch.optim.Adam(self.model.parameters(), lr=self.lr)
         
@@ -214,7 +215,9 @@ class EfficientDetModel(pl.LightningModule):
     @typedispatch
     def predict(self, images: List):
         """
-        For making predictions from images
+        For making predictions from images, note those are original images in raw size, this
+        function should be used when making the predictions most of the time.
+        
         Args:
             images: a list of PIL images
 
@@ -223,7 +226,7 @@ class EfficientDetModel(pl.LightningModule):
         image_sizes = [(image.size[1], image.size[0]) for image in images]
         images_tensor = torch.stack(
             [
-                self.inference_tfms(    # CHECK: class and bboxes is fixed 
+                self.inference_tfms(    # NOTE: Class and bboxes don't matter here
                     image=np.array(image, dtype=np.float32),
                     class_labels=np.ones(1),
                     bboxes=np.array([[0, 0, 1, 1]]),
@@ -237,7 +240,10 @@ class EfficientDetModel(pl.LightningModule):
     @typedispatch
     def predict(self, images_tensor: torch.Tensor):
         """
-        For making predictions from tensors returned from the model's dataloader
+        For making predictions from tensors returned from the model's DataLoader,
+        note that those tensors are already rescaled since it is from DataLoader. This
+        function is mostly used for checking hooks in lightning.
+        
         Args:
             images_tensor: the images tensor returned from the dataloader
 

@@ -83,9 +83,9 @@ def run(config, wdb, mode):
 if __name__ == '__main__':
     parser = ArgumentParser(description="Parser for EfficientDet Experiments")
     parser.add_argument('-p', dest='config_path', type=str,
-                        default='sweep/efficientdet_d0.yaml')
+                        default='config/efficientdet_d0.yaml')
     parser.add_argument('-wdb', dest='wdb', type=bool, default=True)
-    parser.add_argument('-mode', dest='mode', type=str, default='grid')
+    parser.add_argument('-mode', dest='mode', type=str, default='train')
     args = parser.parse_args()
     
     with open(args.config_path, 'r') as stream:

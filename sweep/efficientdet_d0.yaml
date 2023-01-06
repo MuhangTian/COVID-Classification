@@ -6,7 +6,7 @@ metric:
 parameters:
   batch_size: 
     distribution: int_uniform
-    min: 2
+    min: 4
     max: 19
   img_size: 
     value: 512
@@ -25,7 +25,7 @@ parameters:
     mu: 0.6
     sigma: 0.2
   optimizer:
-    values: ['AdamW', 'SGD', 'Adam']
+    values: ['AdamW', 'SGD']
 command:
   - ${env}
   - python3

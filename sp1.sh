@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=SP-EffDet
 #SBATCH --time=90-00:00:00
-#SBATCH --array=1-20
+#SBATCH --array=1-25
 #SBATCH -n 1
 #SBATCH --gpus-per-task=1
 #SBATCH --mem-per-gpu=30G
@@ -17,4 +17,4 @@ echo "SLURM_JOBID: " $SLURM_JOBID
 echo "SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID 
 echo "SLURM_ARRAY_JOB_ID: " $SLURM_ARRAY_JOB_ID
 
-srun wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj"
+srun wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/htvg2spu"

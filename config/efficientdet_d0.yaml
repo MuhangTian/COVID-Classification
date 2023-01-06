@@ -2,7 +2,7 @@ project: EffDet (tl_efficientnetv2_l backbone)
 batch_size: 7
 img_size: 512
 backbone: efficientdet_d0
-max_epochs: 100
+max_epochs: 4
 predict_confidence_thres: 0.5
 lr: 0.0002
 iou_thres: 0.6
