@@ -12,27 +12,27 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate covid-cv
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/fkjepv2n" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
 wait
