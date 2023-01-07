@@ -20,10 +20,11 @@ For more details: https://github.com/rwightman/efficientdet-pytorch
 '''
 def run(config, wdb, mode):
     if wdb == True:
-        run = wandb.init(
+        wandb.init(
             entity='muhang-tian',
             project=config['project'],
-            config=config)
+            config=config
+        )
         config = wandb.config
     # --------------------- get hyperparameters based on mode ---------------------
     if mode == 'train':
@@ -74,7 +75,7 @@ def run(config, wdb, mode):
     )
     
     trainer.fit(model, datamodule=module)
-    
+    if wdb == True: wandb.finish()
     if mode == 'train':
         torch.save(model.state_dict(), f"trained/EfficientDet/{config['backbone']}")
         

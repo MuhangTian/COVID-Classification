@@ -13,7 +13,7 @@ parameters:
   backbone:
     value: efficientdet_d0
   max_epochs:
-    value: 100
+    value: 3
   predict_confidence_thres:
     distribution: normal
     mu: 0.66
