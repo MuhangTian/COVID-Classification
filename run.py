@@ -75,7 +75,7 @@ def run(config, wdb, mode):
     )
     
     trainer.fit(model, datamodule=module)
-    if wdb == True: wandb.finish()
+    # if wdb == True: wandb.finish()
     if mode == 'train':
         torch.save(model.state_dict(), f"trained/EfficientDet/{config['backbone']}")
         
