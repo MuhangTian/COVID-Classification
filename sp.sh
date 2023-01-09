@@ -17,4 +17,4 @@ echo "SLURM_JOBID: " $SLURM_JOBID
 echo "SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID 
 echo "SLURM_ARRAY_JOB_ID: " $SLURM_ARRAY_JOB_ID
 
-srun wandb agent --count 1 "muhang-tian/EfficientDetD0 Sweep (Random)/fru4dn0c"
+srun wandb agent --count 1 "muhang-tian/EfficientDetD0 Sweep (Random)/f3qk80rw"
