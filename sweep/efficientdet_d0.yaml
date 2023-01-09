@@ -13,11 +13,7 @@ parameters:
   backbone:
     value: efficientdet_d0
   max_epochs:
-    value: 100
-  predict_confidence_thres:
-    distribution: normal
-    mu: 0.66
-    sigma: 0.12
+    value: [100, 125, 150]
   lr: 
     values: [0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.00005, 0.00001]
   iou_thres: 
@@ -25,11 +21,11 @@ parameters:
     mu: 0.6
     sigma: 0.2
   optimizer:
-    values: ['AdamW', 'SGD']
+    values: ['AdamW', 'SGD', 'Adam']
 command:
   - ${env}
   - python3
   - ${program}
 
 project: EfficientDetD0 Sweep (Random)
-name: EfficientDet D0 Initial Sweep
+name: EfficientDet D0 Initial Sweep (no confidence level)

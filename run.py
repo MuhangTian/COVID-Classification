@@ -40,7 +40,7 @@ def run(config, wdb, mode):
         img_size = wandb.config.img_size
         batch_size = wandb.config.batch_size
         backbone = wandb.config.backbone
-        predict_confidence_thres = wandb.config.predict_confidence_thres
+        # predict_confidence_thres = wandb.config.predict_confidence_thres
         iou_thres = wandb.config.iou_thres
         lr = wandb.config.lr
         optimizer = wandb.config.optimizer
@@ -60,7 +60,7 @@ def run(config, wdb, mode):
                             backbone=backbone,
                             num_classes=2,
                             img_size=img_size,
-                            predict_confidence_thres=predict_confidence_thres,
+                            predict_confidence_thres=0,     # NOTE: use 0 here for initial sweep
                             lr=lr,
                             iou_thres=iou_thres,
                             optimizer=optimizer,

@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=SP-EffDet
 #SBATCH --time=90-00:00:00
-#SBATCH -n 20
+#SBATCH --array=1-30
+#SBATCH -n 1
 #SBATCH --gpus-per-task=1
 #SBATCH --mem-per-gpu=30G
 #SBATCH --mail-user=muhang.tian@duke.edu
@@ -12,27 +13,8 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate covid-cv
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
+echo "SLURM_JOBID: " $SLURM_JOBID
+echo "SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID 
+echo "SLURM_ARRAY_JOB_ID: " $SLURM_ARRAY_JOB_ID
 
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-srun --exclusive -n1 wandb agent "muhang-tian/EfficientDetD0 Sweep (Random)/m77pgogj" &
-wait
+srun wandb agent --count 1 "muhang-tian/EfficientDetD0 Sweep (Random)/fru4dn0c"
