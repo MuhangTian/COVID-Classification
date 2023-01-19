@@ -1,14 +1,16 @@
 #!/bin/bash
-
-#SBATCH --job-name=EffDet
-#SBATCH --time=30-00:00:00
+#SBATCH --job-name=EffDetD0
+#SBATCH --time=90-00:00:00
 #SBATCH -n 1
 #SBATCH --gpus-per-task=4
-#SBATCH --mem=100G
+#SBATCH --mem-per-gpu=10G
 #SBATCH --mail-user=muhang.tian@duke.edu
-#SBATCH --output=EffDet.out
+#SBATCH --output=None
 #SBATCH --mail-type=END
 #SBATCH --mail-type=FAIL
 
-srun python3 -u run.py -wdb True -p 'config/tf_efficientdet_d2.yaml'
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate covid-cv
+
+srun python3 run.py -p 'config/efficientdet_d0.yaml' -mode 'train'
 wait

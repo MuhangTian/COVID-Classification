@@ -7,6 +7,7 @@ from ensemble_boxes import ensemble_boxes_wbf
 from image_helper import DataAdapter, show_transform_image
 import albumentations as A
 import pandas as pd
+import numpy as np
 
 def run_wbf(predictions, image_size=512, iou_thr=0.55, skip_box_thr=0.42, weights=None):
     bboxes = []
@@ -94,21 +95,21 @@ def val_transform(img_size=512):    # CHECK: may need another for test set
     )
 
 if __name__ == '__main__':
-    # transform = A.Compose(
-    #     [
-    #     A.Resize(height=1024, width=1024, p=1),
-    #     A.Normalize(),
-    #     # A.RandomBrightnessContrast(p=1),
-    #     # A.RandomGamma(p=1),
-    #     ],
-    #     p=1.0,
-    #     bbox_params=A.BboxParams(format="pascal_voc", 
-    #                              label_fields=["class_labels"]),
-    # )
+    transform = A.Compose(
+        [
+        A.Resize(height=1024, width=1024, p=1),
+        A.Normalize(),
+        # A.RandomBrightnessContrast(p=1),
+        # A.RandomGamma(p=1),
+        ],
+        p=1.0,
+        bbox_params=A.BboxParams(format="pascal_voc", 
+                                 label_fields=["class_labels"]),
+    )
     
-    # da = DataAdapter(pd.read_csv('data/self-data.csv'))
-    # for i in range(1, 1500):
-    #     try: show_transform_image(transform, da, i)
-    #     except: pass
+    da = DataAdapter(pd.read_csv('data/self-data.csv'))
+    for _ in range(100):
+        try: show_transform_image(transform, da, np.random.randint(0, 1500))
+        except: pass
     
-    print(list(efficientdet_model_param_dict.keys())[::3])
+    # print(list(efficientdet_model_param_dict.keys())[::3])

@@ -31,7 +31,7 @@ def run(config, wdb, mode):
         img_size = config['img_size']
         batch_size = config['batch_size']
         backbone = config['backbone']
-        predict_confidence_thres = config['predict_confidence_thres']
+        # predict_confidence_thres = config['predict_confidence_thres']
         iou_thres = config['iou_thres']
         lr = config['lr']
         optimizer = config['optimizer']
@@ -93,7 +93,6 @@ if __name__ == '__main__':
         config = yaml.load(stream, yaml.FullLoader)
         
     run(config, args.wdb, args.mode)
-    
     
     
     

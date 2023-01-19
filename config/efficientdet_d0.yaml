@@ -1,10 +1,9 @@
-project: EffDet (tl_efficientnetv2_l backbone)
-batch_size: 7
+project: EfficientDetD0
+batch_size: 12
 img_size: 512
 backbone: efficientdet_d0
-max_epochs: 4
-predict_confidence_thres: 0.5
-lr: 0.0002
-iou_thres: 0.6
-optimizer: 'AdamW'
-name: 'First Attempt'
+max_epochs: 100
+lr: 0.001
+iou_thres: 0.5325
+optimizer: 'Adam'
+name: 'Training Best Parameter from Initial Sweep'
