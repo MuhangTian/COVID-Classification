@@ -2,8 +2,8 @@ project: EfficientDetD0
 batch_size: 12
 img_size: 512
 backbone: efficientdet_d0
-max_epochs: 100
+max_epochs: 200
 lr: 0.001
-iou_thres: 0.5325
+iou_thres: 0.5324547597242256
 optimizer: 'Adam'
 name: 'Training Best Parameter from Initial Sweep'
