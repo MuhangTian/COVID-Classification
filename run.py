@@ -32,7 +32,7 @@ def run(config, wdb, mode):
         batch_size = config['batch_size']
         backbone = config['backbone']
         # predict_confidence_thres = config['predict_confidence_thres']
-        iou_thres = config['iou_thres']
+        # iou_thres = config['iou_thres']
         lr = config['lr']
         optimizer = config['optimizer']
         max_epochs = config['max_epochs']
@@ -41,7 +41,7 @@ def run(config, wdb, mode):
         batch_size = wandb.config.batch_size
         backbone = wandb.config.backbone
         # predict_confidence_thres = wandb.config.predict_confidence_thres
-        iou_thres = wandb.config.iou_thres
+        # iou_thres = wandb.config.iou_thres
         lr = wandb.config.lr
         optimizer = wandb.config.optimizer
         max_epochs = wandb.config.max_epochs
