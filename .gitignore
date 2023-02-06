@@ -13,3 +13,4 @@ models/__pycache__
 utils/__pycache__
 data/store-self-collected
 lightning_logs
+scratch.py

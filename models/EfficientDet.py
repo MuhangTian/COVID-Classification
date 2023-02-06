@@ -1,3 +1,6 @@
+'''
+To store training and testing procedures for EfficientDet, as well as other dataloaders, optimizers...etc
+'''
 import sys
 sys.path.insert(0, '/home/users/mt361/COVID-Classification')
 sys.path.insert(0, '/home/users/mt361/COVID-Classification/utils')
@@ -87,7 +90,7 @@ class EfficientDetDataModule(LightningDataModule):
         val_loader = DataLoader(
             val_dataset,
             batch_size=self.batch_size,
-            shuffle=False,
+            shuffle=True,
             pin_memory=True,
             drop_last=True,
             num_workers=self.num_workers,
@@ -212,18 +215,17 @@ class EfficientDetModel(pl.LightningModule):
         
         return {"val_loss": validation_loss_mean, "metrics": stats}
     
-    @typedispatch
     def predict(self, images: List):
         """
         For making predictions from images, note those are original images in raw size, this
         function should be used when making the predictions most of the time.
         
         Args:
-            images: a list of PIL images
+            images: a list of images in np
 
         Returns: a tuple of lists containing bboxes, predicted_class_labels, predicted_class_confidences
         """
-        image_sizes = [(image.size[1], image.size[0]) for image in images]
+        image_sizes = [(image.shape[0], image.shape[1]) for image in images]
         images_tensor = torch.stack(
             [
                 self.inference_tfms(    # NOTE: Class and bboxes don't matter here
@@ -237,27 +239,26 @@ class EfficientDetModel(pl.LightningModule):
 
         return self._run_inference(images_tensor, image_sizes)
     
-    @typedispatch
-    def predict(self, images_tensor: torch.Tensor):
-        """
-        For making predictions from tensors returned from the model's DataLoader,
-        note that those tensors are already rescaled since it is from DataLoader. This
-        function is mostly used for checking hooks in lightning.
+    # def predict(self, images_tensor: torch.Tensor):
+    #     """
+    #     For making predictions from tensors returned from the model's DataLoader,
+    #     note that those tensors are already rescaled since it is from DataLoader. This
+    #     function is mostly used for checking hooks in lightning.
         
-        Args:
-            images_tensor: the images tensor returned from the dataloader
+    #     Args:
+    #         images_tensor: the images tensor returned from the dataloader
 
-        Returns: a tuple of lists containing bboxes, predicted_class_labels, predicted_class_confidences
-        """
-        if images_tensor.ndim == 3:
-            images_tensor = images_tensor.unsqueeze(0)
-        if images_tensor.shape[-1] != self.img_size or images_tensor.shape[-2] != self.img_size:
-            raise ValueError(f"Input tensors must be of shape (N, 3, {self.img_size}, {self.img_size})")
+    #     Returns: a tuple of lists containing bboxes, predicted_class_labels, predicted_class_confidences
+    #     """
+    #     if images_tensor.ndim == 3:
+    #         images_tensor = images_tensor.unsqueeze(0)
+    #     if images_tensor.shape[-1] != self.img_size or images_tensor.shape[-2] != self.img_size:
+    #         raise ValueError(f"Input tensors must be of shape (N, 3, {self.img_size}, {self.img_size})")
 
-        num_images = images_tensor.shape[0]
-        image_sizes = [(self.img_size, self.img_size)] * num_images
+    #     num_images = images_tensor.shape[0]
+    #     image_sizes = [(self.img_size, self.img_size)] * num_images
 
-        return self._run_inference(images_tensor, image_sizes)
+    #     return self._run_inference(images_tensor, image_sizes)
     
     def _run_inference(self, images_tensor, image_sizes):
         # NOTE: the dummies do nothing here, merely exist for developing purposes (avoid to declare
@@ -311,7 +312,7 @@ class EfficientDetModel(pl.LightningModule):
         classes = detections.detach().cpu().numpy()[:, 5]
         indexes = np.where(scores > self.predict_confidence_thres)[0]
         boxes = boxes[indexes]
-
+        
         return {"boxes": boxes, "scores": scores[indexes], "classes": classes[indexes]}
     
     def __rescale_bboxes(self, predicted_bboxes, image_sizes):

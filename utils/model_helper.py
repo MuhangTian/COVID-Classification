@@ -97,7 +97,7 @@ def val_transform(img_size=512):    # CHECK: may need another for test set
 if __name__ == '__main__':
     transform = A.Compose(
         [
-        A.Resize(height=1024, width=1024, p=1),
+        A.Resize(height=512, width=512, p=1),
         A.Normalize(),
         # A.RandomBrightnessContrast(p=1),
         # A.RandomGamma(p=1),
