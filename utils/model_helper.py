@@ -61,15 +61,11 @@ def create_model(classes, img_size, backbone, pretrain=True, drop_rate=0.2):
     return DetBenchTrain(net, config)
 
 def train_transform(img_size=512):
-    # TODO: Need more work to add more flexibility in data augmentation techniques
-    # currently is default value
-    # TODO: Some of our image has depth of 4 (related to normalize)
-    # TODO: Check the effects of the transform on dataset first then apply it afterwards
     ''' Apply image transform and augmentation for training set '''
     return A.Compose(
         [
         A.Resize(height=img_size, width=img_size, p=1),
-        A.Normalize(),
+        # A.Normalize(),
         ToTensorV2(p=1)
         ],
         p=1.0,
@@ -78,15 +74,11 @@ def train_transform(img_size=512):
     )
 
 def val_transform(img_size=512):    # CHECK: may need another for test set
-    # TODO: Need more work to add more flexibility in data augmentation techniques
-    # currently is default value
-    # TODO: Some of our image has depth of 4 (in RGBA format)
-    # TODO: Check the effects of the transform on dataset first then apply it afterwards
     ''' Apply image transform and augmentation for validation set or validation set '''
     return A.Compose(
         [
         A.Resize(height=img_size, width=img_size, p=1), 
-        A.Normalize(),
+        # A.Normalize(),
         ToTensorV2(p=1)
         ],
         p=1.0,

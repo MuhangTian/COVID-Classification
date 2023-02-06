@@ -59,10 +59,8 @@ class EfficientDetDataset(Dataset):
 
 class EfficientDetDataModule(LightningDataModule):
     ''' https://pytorch-lightning.readthedocs.io/en/stable/data/datamodule.html '''
-    def __init__(self, df, frac, train_transforms,
+    def __init__(self, df_train, df_val, train_transforms,
                  val_transforms, num_workers=4, batch_size=8):
-        df_train = df.sample(frac=frac)
-        df_val = df.drop(df_train.index)
         self.train_da = DataAdapter(df_train)
         self.val_da = DataAdapter(df_val)
         self.train_tfms = train_transforms
@@ -90,7 +88,7 @@ class EfficientDetDataModule(LightningDataModule):
         val_loader = DataLoader(
             val_dataset,
             batch_size=self.batch_size,
-            shuffle=True,
+            shuffle=False,
             pin_memory=True,
             drop_last=True,
             num_workers=self.num_workers,
@@ -123,7 +121,7 @@ class EfficientDetModel(pl.LightningModule):
     def __init__(
         self,
         inference_transforms,
-        backbone,
+        backbone: str,
         num_classes=2,
         img_size=512,
         predict_confidence_thres=0.2,

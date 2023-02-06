@@ -47,10 +47,13 @@ def run(config, wdb, mode):
         max_epochs = wandb.config.max_epochs
     else: raise ValueError('Only train or grid allowed as mode')
     # -----------------------------------------------------------------------------
-    df = pd.read_csv('data/self-data-TRAIN.csv')
+    
+    df_train = pd.read_csv('data/augmented-TRAIN.csv')
+    df_val = pd.read_csv('data/self-data-VALID.csv')
+    
     module = EfficientDetDataModule( # CHECK: may need to implement test_loader() for test set inside this class
-        df=df,
-        frac=0.75,
+        df_train=df_train,
+        df_val=df_val,
         train_transforms=train_transform(img_size),
         val_transforms=val_transform(img_size),
         batch_size=batch_size)

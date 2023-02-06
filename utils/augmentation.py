@@ -11,6 +11,12 @@ from image_helper import DataAdapter, show_image
 from tqdm import tqdm
 from PIL import Image
 
+class DataAdapter(DataAdapter):
+    # NOTE: override to allow certain functionalities
+    def __init__(self, csv_path: str, data_path: str) -> None:
+        self.df = pd.read_csv(csv_path)
+        self.data_path = data_path
+
 def augment(func: A.Compose, image: np.array, bbox: list, label: int):
     img = np.array(image)
     img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
@@ -161,10 +167,10 @@ def merge_csv(csvs: list):
     return print(f"{'='*8} FINISH {'='*8}")
 
 if __name__ == '__main__':
-    
-    # da = DataAdapter('augmented.csv', data_path='data/contrast-aug')
-    # for _ in range(100):
-    #     idx = np.random.randint(0, len(da))
-    #     id, image, bbox, label = da.i_get(idx)
-    #     show_image(image, bbox, label)
+    da = DataAdapter('augmented.csv', data_path='data/contrast-aug')
+    for _ in range(100):
+        idx = np.random.randint(0, len(da))
+        id, image, bbox, label = da.i_get(idx)
+        show_image(image, bbox, label)
     merge_csv(['blur-noise.csv', 'contrast-gamma.csv', 'defocus.csv', 'downscale.csv', 'dropout.csv', 'hue-satur.csv', 'sun.csv'])
+    
