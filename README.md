@@ -22,4 +22,5 @@ LFA-CV
 |————config     (store model parameters using .yaml)
 |————sweep      (store .yaml files for hyper-parameter tuning using Weights & Biases)
 |————effdet   (efficientdet implemented by Wightman)
+|————run.py   (file for training models and tuning hyper-parameters)
 ```
