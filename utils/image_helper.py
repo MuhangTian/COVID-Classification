@@ -17,6 +17,7 @@ def get_bbox(df, name):
     idx = get_idx(df, name)
     return [df.loc[idx]['xmin'], df.loc[idx]['ymin'], df.loc[idx]['xmax'], df.loc[idx]['ymax']]
 
+
 def get_edges(bbox):
     xmin, ymin, xmax, ymax = bbox
     bottom_left = (xmin, ymax)
@@ -24,11 +25,13 @@ def get_edges(bbox):
     height = ymin - ymax
     return bottom_left, width, height
 
+
 def plot_bbox(ax, bbox, color):
     bottom_left, width, height = get_edges(bbox)
     rect = patches.Rectangle(bottom_left, width, height, 
                                linewidth=1, edgecolor=color, color=color, fill=True, alpha=0.2)
     ax.add_patch(rect)
+
 
 def plot_image(df, img_name, figsize=(8,8)):
     """
@@ -49,6 +52,7 @@ def plot_image(df, img_name, figsize=(8,8)):
     plt.axis('off')
     plt.show()
 
+
 def show_image(img, bbox, label, img_name=None, figsize=(8,8)):
     ''' Plot image along with bbox without dataframe '''
     fig, ax = plt.subplots(1, figsize=figsize)
@@ -60,6 +64,7 @@ def show_image(img, bbox, label, img_name=None, figsize=(8,8)):
     plt.title(img_name)
     plt.axis('off')
     plt.show()
+
 
 def show_transform_image(func, DA, val):
     """
@@ -74,13 +79,16 @@ def show_transform_image(func, DA, val):
     img = np.array(img, dtype=np.float32)
     img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
     transformed = func(image=img, bboxes=bbox, class_labels=label)
+    
     return show_image(transformed['image'], transformed['bboxes'], transformed['class_labels'], name)
 
 class DataAdapter:
+    
     def __init__(self, df) -> None:
         self.df = df
     
     def __len__(self): return self.df.shape[0]
+    
     
     def get(self, val):
         ''' return PIL image '''
@@ -88,32 +96,38 @@ class DataAdapter:
         elif type(val) == int: return get_img(get_name(self.df, val))
         else: raise ValueError('Only image name or index please')
     
+    
     def get_name(self, idx): return self.df.iloc[idx]['filename']
     
-    def i_get(self, idx):
+    
+    def i_get(self, idx: int):
         ''' Given index of the dataframe
         Returns: name, image, bbox, label '''
         name = get_name(self.df, idx)
         id = int(name.replace('.jpg', ''))
         img = get_img(name)
-        img = np.array(img, dtype=np.float32)
+        img = np.array(img)
         img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
         bbox = get_bbox(self.df, name)
         label = self.df.iloc[idx]['label']
+        
         return id, img, [bbox], [label]
     
-    def n_get(self, name):
+    
+    def n_get(self, name: str):
         ''' Given image name
         Returns: dataframe index, image, bbox, label '''
         idx = get_idx(self.df, name)
         img = get_img(name)
-        img = np.array(img, dtype=np.float32)
+        img = np.array(img)
         img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB) # this is IMPORTANT
         bbox = get_bbox(self.df, name)
         label = self.df.iloc[idx]['label']
+        
         return idx, img, [bbox], [label]
     
-    def plot_img(self, val):
+    
+    def plot_img(self, val: int):
         ''' 
         Given dataframe index or image name, plot image along with bounding box colored by label
         '''
@@ -122,8 +136,12 @@ class DataAdapter:
         else: raise ValueError('Only index or image name allowed')
         
 if __name__ == '__main__':
-    da = DataAdapter('data/self-data.csv')
-    print(da.i_get(0))
+    df = pd.read_csv('data/augmented-TRAIN.csv')
+    da = DataAdapter(df)
+    for _ in range(10000):
+        id = np.random.randint(0, 10467)
+        idx, img, bbox, label = da.i_get(id)
+        show_image(img, bbox, label)
     
     
     
