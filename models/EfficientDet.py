@@ -69,6 +69,7 @@ class EfficientDetDataModule(LightningDataModule):
         self.batch_size = batch_size
         super().__init__()
 
+
     def train_dataloader(self) -> DataLoader:
         train_dataset = EfficientDetDataset(da=self.train_da, transforms=self.train_tfms)
         train_loader = DataLoader(
@@ -83,6 +84,7 @@ class EfficientDetDataModule(LightningDataModule):
 
         return train_loader
 
+
     def val_dataloader(self) -> DataLoader:
         val_dataset = EfficientDetDataset(da=self.val_da, transforms=self.val_tfms)
         val_loader = DataLoader(
@@ -96,6 +98,7 @@ class EfficientDetDataModule(LightningDataModule):
         )
 
         return val_loader
+    
     
     @staticmethod
     def collate_fn(batch):
@@ -118,6 +121,7 @@ class EfficientDetDataModule(LightningDataModule):
         return images, annotations, targets, image_ids
 
 class EfficientDetModel(pl.LightningModule):
+    
     def __init__(
         self,
         inference_transforms,
@@ -139,8 +143,10 @@ class EfficientDetModel(pl.LightningModule):
         self.optimizer = optimizer
         self.my_epoch = 0
 
+
     def forward(self, images, targets):
         return self.model(images, targets)
+
 
     def configure_optimizers(self):
         if self.optimizer == 'AdamW':
@@ -163,6 +169,7 @@ class EfficientDetModel(pl.LightningModule):
             wandb.log({'Epoch': self.my_epoch})
         return losses['loss']
     
+    
     @torch.no_grad()    
     def validation_step(self, batch, batch_idx):
         images, annotations, targets, image_ids = batch
@@ -178,6 +185,7 @@ class EfficientDetModel(pl.LightningModule):
         wandb.log({'Validation Localization Loss': outputs["box_loss"].detach()})
             
         return {'loss': outputs["loss"], 'batch_predictions': batch_predictions}
+    
     
     def validation_epoch_end(self, outputs):
         validation_loss_mean = torch.stack(
@@ -212,6 +220,7 @@ class EfficientDetModel(pl.LightningModule):
         wandb.log({'Average Recall': stats['AR_all']})
         
         return {"val_loss": validation_loss_mean, "metrics": stats}
+    
     
     def predict(self, images: List):
         """
@@ -276,6 +285,7 @@ class EfficientDetModel(pl.LightningModule):
 
         return scaled_bboxes, predicted_class_labels, predicted_class_confidences
     
+    
     def _create_dummy_inference_targets(self, num_images):
         dummy_targets = {
             "bbox": [
@@ -291,6 +301,7 @@ class EfficientDetModel(pl.LightningModule):
 
         return dummy_targets
     
+    
     def post_process_detections(self, detections):
         predictions = []
         for i in range(detections.shape[0]):
@@ -304,6 +315,7 @@ class EfficientDetModel(pl.LightningModule):
 
         return predicted_bboxes, predicted_class_confidences, predicted_class_labels
     
+    
     def _postprocess_single_prediction_detections(self, detections):
         boxes = detections.detach().cpu().numpy()[:, :4]
         scores = detections.detach().cpu().numpy()[:, 4]
@@ -312,6 +324,7 @@ class EfficientDetModel(pl.LightningModule):
         boxes = boxes[indexes]
         
         return {"boxes": boxes, "scores": scores[indexes], "classes": classes[indexes]}
+    
     
     def __rescale_bboxes(self, predicted_bboxes, image_sizes):
         scaled_bboxes = []
@@ -326,6 +339,7 @@ class EfficientDetModel(pl.LightningModule):
                 scaled_bboxes.append(bboxes)
 
         return scaled_bboxes
+    
     
     # @patch
     def aggregate_prediction_outputs(self, outputs):

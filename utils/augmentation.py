@@ -64,6 +64,7 @@ def augment_save(func: A.Compose, da: DataAdapter, path: str, start: int, num: i
     
     return print('COMPLETE')
 
+
 def random_check(func: A.Compose, da: DataAdapter, num: int=100):
     for _ in range(num):
         idx = np.random.randint(0, len(da))
