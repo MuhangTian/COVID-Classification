@@ -19,7 +19,7 @@ def augment(func: A.Compose, image: np.array, bbox: list, label: int):
     return transformed['image'], transformed['bboxes'], transformed['class_labels']
 
 
-def augment_save(func: A.Compose, da: DataAdapter, path: str, start: int, num: int=0):
+def augment_save(func: A.Compose, da: DataAdapter, path: str, start: int, num: int, save_name: str):
     assert type(num) == int
     map = {'label': [],
            'filename': [],
@@ -54,7 +54,7 @@ def augment_save(func: A.Compose, da: DataAdapter, path: str, start: int, num: i
 
     df = pd.DataFrame.from_dict(map)
     df.set_index('label')
-    df.to_csv('augmented.csv')
+    df.to_csv(f'{save_name}.csv')
     
     return print('COMPLETE')
 
@@ -66,14 +66,7 @@ def random_check(func: A.Compose, da: DataAdapter, num: int=100):
         show_image(image, bbox, label)
 
 
-if __name__ == '__main__':
-    
-    # da = DataAdapter('augmented.csv', data_path='data/contrast-aug')
-    # for _ in range(100):
-    #     idx = np.random.randint(0, len(da))
-    #     id, image, bbox, label = da.i_get(idx)
-    #     show_image(image, bbox, label)
-    
+def run_all():
     da = DataAdapter('data/self-data-TRAIN.csv', data_path='data/self-data/images')
     transform1 = A.Compose(
     [
@@ -141,5 +134,37 @@ if __name__ == '__main__':
                                 label_fields=["class_labels"]),
     )
     
-    random_check(transform7, da)
-    # augment_save(transform, da, 'data/contrast-aug', 1731, 0)
+    # random_check(transform7, da)
+    augment_save(transform1, da, 'data/contrast-gamma-aug', 1731, 0, save_name='contrast-gamma')
+    augment_save(transform2, da, 'data/hue-satur-aug', 3033, 0, save_name='hue-satur')
+    augment_save(transform3, da, 'data/blur-noise-aug', 4335, 0, save_name='blur-noise')
+    augment_save(transform4, da, 'data/dropout-aug', 5637, 0, save_name='dropout')
+    augment_save(transform5, da, 'data/downscale-aug', 6939, 0, save_name='downscale')
+    augment_save(transform6, da, 'data/sun-aug', 8241, 0, save_name='sun')
+    augment_save(transform7, da, 'data/defocus-aug', 9543, 0, save_name='defocus')
+    
+    return print(f"{'='*8} FINISH {'='*8}")
+
+
+def merge_csv(csvs: list):
+    a = pd.read_csv('data/self-data-TRAIN.csv')     # want to merge with this one
+    a = a.drop(['width', 'height', 'depth'], axis=1)
+    df_arr = [a]
+    for csv in tqdm(csvs, desc='Merging...'):
+        df = pd.read_csv(csv)
+        df = df[['label', 'filename', 'xmin', 'ymin', 'xmax', 'ymax']]
+        df_arr.append(df)
+    all = pd.concat(df_arr)
+    all = all[['label', 'filename', 'xmin', 'ymin', 'xmax', 'ymax']]
+    all.to_csv('augmented-TRAIN.csv')
+    
+    return print(f"{'='*8} FINISH {'='*8}")
+
+if __name__ == '__main__':
+    
+    # da = DataAdapter('augmented.csv', data_path='data/contrast-aug')
+    # for _ in range(100):
+    #     idx = np.random.randint(0, len(da))
+    #     id, image, bbox, label = da.i_get(idx)
+    #     show_image(image, bbox, label)
+    merge_csv(['blur-noise.csv', 'contrast-gamma.csv', 'defocus.csv', 'downscale.csv', 'dropout.csv', 'hue-satur.csv', 'sun.csv'])

@@ -11,6 +11,7 @@ effdet/evaluation/__pycache__
 effdet/object_detection/__pycache__
 models/__pycache__
 utils/__pycache__
-data/store-self-collected
+data/DataStore
+data/Augmentations.zip
 lightning_logs
 scratch.py
