@@ -13,4 +13,4 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate covid-cv
 
-srun wandb agent --count 1 "muhang-tian/EfficientDetD0 Sweep (Random)/ydjjawd8"
+srun wandb agent --count 1 "muhang-tian/EfficientDetD0 Sweep (Random)/43wm1xum"
