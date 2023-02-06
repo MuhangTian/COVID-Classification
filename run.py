@@ -65,7 +65,7 @@ def run(config, wdb, mode):
                             img_size=img_size,
                             predict_confidence_thres=0,     # NOTE: use 0 here for initial sweep
                             lr=lr,
-                            iou_thres=iou_thres,
+                            # iou_thres=iou_thres,
                             optimizer=optimizer,
     )
     trainer = Trainer(
