@@ -23,7 +23,6 @@ debugpy==1.6.4
 decorator==5.1.1
 defusedxml==0.7.1
 docker-pycreds==0.4.0
-effdet==0.3.0
 ensemble-boxes==1.0.9
 entrypoints==0.4
 executing==1.2.0
@@ -70,6 +69,7 @@ notebook==6.5.2
 notebook-shim==0.2.2
 numba==0.56.4
 numpy==1.23.5
+objdetecteval==0.1
 omegaconf==2.3.0
 opencv-python==4.7.0.68
 opencv-python-headless==4.7.0.68
