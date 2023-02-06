@@ -1,4 +1,4 @@
-# LFA-CV
+# LFA-CV 🦠💊⚒
 This repository contains files related with designing and training a computer vision model that would correctly classify the results of lateral flow assay (LFA) tests.
 
 * To install relevant packages: `pip install -r requirements.txt`
