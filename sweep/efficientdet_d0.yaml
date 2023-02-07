@@ -27,5 +27,5 @@ command:
   - python3
   - ${program}
 
-project: EfficientDetD0 Sweep (Random)
+project: EfficientDetD0
 name: EfficientDet D0 Initial Sweep (augmented data)
