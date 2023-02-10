@@ -15,5 +15,5 @@
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate covid-cv
 
-sleep $((SLURM_ARRAY_TASK_ID*60))
+sleep $((SLURM_ARRAY_TASK_ID*10))
 srun wandb agent --count 1 "muhang-tian/EfficientDetD0/w5rud6ym"
