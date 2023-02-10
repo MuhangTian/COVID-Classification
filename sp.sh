@@ -3,7 +3,7 @@
 #SBATCH --time=90-00:00:00
 #SBATCH --array=1-30
 #SBATCH -n 1
-#SBATCH --cpus-per-task=4s
+#SBATCH --cpus-per-task=4
 #SBATCH -p compsci
 #SBATCH --mem-per-cpu=30G
 #SBATCH --mail-user=muhang.tian@duke.edu
