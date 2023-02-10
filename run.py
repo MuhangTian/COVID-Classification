@@ -76,7 +76,7 @@ def run(config, wdb, mode):
                     log_every_n_steps=50,   
                     devices='auto',
     )
-    
+    torch.multiprocessing.set_sharing_strategy('file_system')
     trainer.fit(model, datamodule=module)
     if wdb == True: wandb.finish()
     if mode == 'train':
