@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH --job-name=SP-EffDet
 #SBATCH --time=90-00:00:00
-#SBATCH --array=1-60
+#SBATCH --array=1-10
 #SBATCH -n 1
-#SBATCH --cpus-per-task=1
-#SBATCH -p compsci
-#SBATCH --mem-per-cpu=30G
+#SBATCH --gpus-per-task=1
+#SBATCH -p compsci-gpu
+#SBATCH --mem-per-gpu=30G
 #SBATCH --mail-user=muhang.tian@duke.edu
 #SBATCH --output=None
 #SBATCH --mail-type=END
