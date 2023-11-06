@@ -10,7 +10,7 @@ LFA-CV
 |
 |————data
 |      |
-|      |————self-data (collected by ourselves from 小红书)
+|      |————self-data
 |      |         |————image (all the images including the original and augmented ones)
 |      |         |————Annotations (annotation files from label-studio)
 |      |
