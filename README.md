@@ -1,5 +1,5 @@
 # LFA-CV 🦠💊⚒
-This repository contains files related with designing and training a computer vision model that would correctly classify the results of lateral flow assay (LFA) tests.
+This repository contains files related with designing and training a computer vision model that would correctly detect and classify the results of lateral flow assay (LFA) tests.
 
 * To install relevant packages: `pip install -r requirements.txt`
 * Need to add environment variable using `PYTHONPATH="path/to/your/directory:$PYTHONPATH` (or add the root directory to `sys.path` at top of each .py file)
@@ -20,7 +20,7 @@ LFA-CV
 |————utils  (helper functions and modules)
 |————trained    (store trained models)
 |————config     (store model parameters using .yaml)
-|————sweep      (store .yaml files for hyper-parameter tuning using Weights & Biases)
-|————effdet   (efficientdet implemented by Wightman)
-|————run.py   (file for training models and tuning hyper-parameters)
+|————sweep      (store .yaml files for hyperparameter tuning using Weights & Biases)
+|————effdet   (EfficientDet implementation)
+|————run.py   (file for training models and tuning hyperparameters)
 ```
